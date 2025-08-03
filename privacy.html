@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Policy - Taut Secure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --primary: #d90429;
+        --accent: #d90429;
+        --background: #ffffff;
+        --foreground: #111111;
+        --card-bg: #f7f7f7;
+        --nav-bg: #fff;
+        --nav-fg: #111;
+        --shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+        --text-muted: #666666;
+        --border: #e5e5e5;
+      }
+
+      [data-theme="dark"] {
+        --background: #111;
+        --foreground: #fff;
+        --card-bg: #181818;
+        --nav-bg: #181818;
+        --nav-fg: #fff;
+        --shadow: 0 2px 16px rgba(217, 4, 41, 0.15);
+        --text-muted: #999999;
+        --border: #333333;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        background: var(--background);
+        color: var(--foreground);
+        line-height: 1.6;
+        transition: background 0.3s, color 0.3s;
+      }
+
+      /* Navigation */
+      .navbar {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        padding: 1rem 0;
+      }
+
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2rem;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+      }
+
+      .nav-menu a {
+        text-decoration: none;
+        color: var(--foreground);
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+
+      .nav-menu a:hover {
+        color: var(--primary);
+      }
+
+      .back-btn {
+        background: var(--primary);
+        color: white;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 6px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .back-btn:hover {
+        background: #b80022;
+        transform: translateY(-1px);
+      }
+
+      /* Main Content */
+      .main-content {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 120px 2rem 4rem 2rem;
+      }
+
+      .page-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 2px solid var(--border);
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+
+      .page-subtitle {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .last-updated {
+        background: rgba(217, 4, 41, 0.1);
+        color: var(--primary);
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        display: inline-block;
+        margin-top: 1rem;
+      }
+
+      /* Content Sections */
+      .content-section {
+        margin-bottom: 3rem;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--foreground);
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .section-content {
+        color: var(--text-muted);
+        line-height: 1.8;
+      }
+
+      .section-content p {
+        margin-bottom: 1rem;
+      }
+
+      .section-content ul {
+        margin: 1rem 0;
+        padding-left: 2rem;
+      }
+
+      .section-content li {
+        margin-bottom: 0.5rem;
+      }
+
+      .section-content strong {
+        color: var(--foreground);
+        font-weight: 600;
+      }
+
+      .highlight-box {
+        background: rgba(217, 4, 41, 0.05);
+        border-left: 4px solid var(--primary);
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        border-radius: 0 8px 8px 0;
+      }
+
+      .highlight-box strong {
+        color: var(--primary);
+        font-weight: 600;
+      }
+
+      /* Contact Section */
+      .contact-section {
+        background: var(--card-bg);
+        padding: 2rem;
+        border-radius: 12px;
+        margin-top: 3rem;
+        text-align: center;
+        box-shadow: var(--shadow);
+      }
+
+      .contact-section h3 {
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+
+      .contact-info {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--text-muted);
+      }
+
+      .contact-item a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .contact-item a:hover {
+        text-decoration: underline;
+      }
+
+      /* Footer */
+      .footer {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        color: #ffffff;
+        text-align: center;
+        padding: 2rem;
+        margin-top: 4rem;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .footer p {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer a {
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .footer a:hover {
+        text-decoration: underline;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .nav-menu {
+          display: none;
+        }
+
+        .main-content {
+          padding: 100px 1rem 2rem 1rem;
+        }
+
+        .page-title {
+          font-size: 2rem;
+        }
+
+        .contact-info {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .nav-container {
+          padding: 0 1rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .page-title {
+          font-size: 1.8rem;
+        }
+
+        .section-title {
+          font-size: 1.3rem;
+        }
+
+        .highlight-box {
+          padding: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="logo">Taut Secure</div>
+        <ul class="nav-menu">
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <a href="index.html" class="back-btn"> ← Back to Home </a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Page Header -->
+      <header class="page-header">
+        <h1 class="page-title">Privacy Policy</h1>
+        <p class="page-subtitle">At Taut Secure, we are committed to protecting your privacy and ensuring the security of your personal information. This policy explains how we collect, use, and safeguard your data.</p>
+        <div class="last-updated">Last Updated: January 15, 2025</div>
+      </header>
+
+      <!-- Privacy Content -->
+      <div class="content-section">
+        <h2 class="section-title">1. Information We Collect</h2>
+        <div class="section-content">
+          <p>We collect information that you provide directly to us, including:</p>
+          <ul>
+            <li><strong>Personal Information:</strong> Name, email address, phone number, and physical address</li>
+            <li><strong>Business Information:</strong> Company name, job title, and business contact details</li>
+            <li><strong>Service Information:</strong> Details about your security requirements, installation preferences, and system specifications</li>
+            <li><strong>Payment Information:</strong> Billing address, payment method details, and transaction history</li>
+            <li><strong>Technical Information:</strong> IP address, browser type, device information, and usage data</li>
+          </ul>
+          <div class="highlight-box"><strong>Note:</strong> We only collect information that is necessary to provide our services and improve your experience with Taut Secure.</div>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">2. How We Use Your Information</h2>
+        <div class="section-content">
+          <p>We use the information we collect for the following purposes:</p>
+          <ul>
+            <li>To provide and maintain our security services</li>
+            <li>To process payments and manage billing</li>
+            <li>To communicate with you about our services</li>
+            <li>To provide customer support and technical assistance</li>
+            <li>To improve our services and develop new features</li>
+            <li>To comply with legal obligations and regulations</li>
+            <li>To protect against fraud and ensure security</li>
+          </ul>
+          <p><strong>Service Delivery:</strong> Your information helps us deliver personalized security solutions tailored to your specific needs and requirements.</p>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">3. Information Sharing and Disclosure</h2>
+        <div class="section-content">
+          <p>We do not sell, trade, or rent your personal information to third parties. We may share your information in the following circumstances:</p>
+          <ul>
+            <li><strong>Service Providers:</strong> With trusted third-party vendors who assist us in providing our services</li>
+            <li><strong>Legal Requirements:</strong> When required by law or to protect our rights and safety</li>
+            <li><strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of assets</li>
+            <li><strong>Consent:</strong> With your explicit consent for specific purposes</li>
+          </ul>
+          <div class="highlight-box"><strong>Data Protection:</strong> All third-party service providers are bound by confidentiality agreements and data protection obligations.</div>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">4. Data Security</h2>
+        <div class="section-content">
+          <p>We implement comprehensive security measures to protect your personal information:</p>
+          <ul>
+            <li>Encryption of sensitive data in transit and at rest</li>
+            <li>Regular security audits and vulnerability assessments</li>
+            <li>Access controls and authentication mechanisms</li>
+            <li>Employee training on data protection practices</li>
+            <li>Incident response procedures and monitoring</li>
+          </ul>
+          <p><strong>Security Standards:</strong> We follow industry best practices and comply with relevant data protection regulations to ensure the highest level of security for your information.</p>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">5. Data Retention</h2>
+        <div class="section-content">
+          <p>We retain your personal information for as long as necessary to:</p>
+          <ul>
+            <li>Provide our services and maintain your account</li>
+            <li>Comply with legal and regulatory requirements</li>
+            <li>Resolve disputes and enforce our agreements</li>
+            <li>Improve our services and develop new features</li>
+          </ul>
+          <p><strong>Retention Periods:</strong> Different types of information may be retained for different periods based on their purpose and legal requirements. We will delete or anonymize your data when it is no longer needed.</p>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">6. Your Rights and Choices</h2>
+        <div class="section-content">
+          <p>You have the following rights regarding your personal information:</p>
+          <ul>
+            <li><strong>Access:</strong> Request a copy of the personal information we hold about you</li>
+            <li><strong>Correction:</strong> Request correction of inaccurate or incomplete information</li>
+            <li><strong>Deletion:</strong> Request deletion of your personal information in certain circumstances</li>
+            <li><strong>Portability:</strong> Request transfer of your data to another service provider</li>
+            <li><strong>Objection:</strong> Object to processing of your data for certain purposes</li>
+            <li><strong>Withdrawal:</strong> Withdraw consent for data processing where applicable</li>
+          </ul>
+          <div class="highlight-box"><strong>Exercise Your Rights:</strong> To exercise any of these rights, please contact us using the information provided below. We will respond to your request within 30 days.</div>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">7. Cookies and Tracking Technologies</h2>
+        <div class="section-content">
+          <p>We use cookies and similar tracking technologies to enhance your experience on our website:</p>
+          <ul>
+            <li><strong>Essential Cookies:</strong> Required for basic website functionality</li>
+            <li><strong>Analytics Cookies:</strong> Help us understand how visitors use our website</li>
+            <li><strong>Marketing Cookies:</strong> Used to deliver relevant advertisements</li>
+            <li><strong>Preference Cookies:</strong> Remember your settings and preferences</li>
+          </ul>
+          <p><strong>Cookie Management:</strong> You can control cookie settings through your browser preferences. However, disabling certain cookies may affect website functionality.</p>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">8. Third-Party Services</h2>
+        <div class="section-content">
+          <p>Our website and services may contain links to third-party websites or integrate with third-party services. We are not responsible for the privacy practices of these third parties.</p>
+          <p><strong>Third-Party Services We Use:</strong></p>
+          <ul>
+            <li>Payment processors for secure transactions</li>
+            <li>Analytics services to improve our website</li>
+            <li>Customer support platforms</li>
+            <li>Cloud storage and hosting services</li>
+          </ul>
+          <p>We recommend reviewing the privacy policies of any third-party services you interact with.</p>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">9. Children's Privacy</h2>
+        <div class="section-content">
+          <p>Our services are not intended for children under the age of 13. We do not knowingly collect personal information from children under 13. If we become aware that we have collected such information, we will take steps to delete it promptly.</p>
+          <p><strong>Parental Rights:</strong> If you are a parent or guardian and believe your child has provided us with personal information, please contact us immediately.</p>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">10. International Data Transfers</h2>
+        <div class="section-content">
+          <p>Your personal information may be transferred to and processed in countries other than your own. We ensure that such transfers comply with applicable data protection laws and implement appropriate safeguards.</p>
+          <p><strong>Data Protection Standards:</strong> We maintain the same level of data protection regardless of where your information is processed.</p>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">11. Changes to This Privacy Policy</h2>
+        <div class="section-content">
+          <p>We may update this Privacy Policy from time to time to reflect changes in our practices or applicable laws. We will notify you of any material changes by:</p>
+          <ul>
+            <li>Posting the updated policy on our website</li>
+            <li>Sending you an email notification</li>
+            <li>Displaying a prominent notice on our website</li>
+          </ul>
+          <div class="highlight-box"><strong>Continued Use:</strong> Your continued use of our services after any changes constitutes acceptance of the updated Privacy Policy.</div>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">12. Contact Us</h2>
+        <div class="section-content">
+          <p>If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:</p>
+          <ul>
+            <li><strong>Data Protection Officer:</strong> privacy@tautsecure.com</li>
+            <li><strong>General Inquiries:</strong> info@tautsecure.com</li>
+            <li><strong>Phone:</strong> +91 7337836586</li>
+            <li><strong>Address:</strong> Bangalore | Mangalore | Kasaragod</li>
+          </ul>
+          <p><strong>Response Time:</strong> We aim to respond to all privacy-related inquiries within 30 days.</p>
+        </div>
+      </div>
+
+      <!-- Contact Section -->
+      <div class="contact-section">
+        <h3>Questions About Your Privacy?</h3>
+        <p>We're committed to transparency and protecting your privacy. If you have any questions about how we handle your personal information, please don't hesitate to reach out to us.</p>
+        <div class="contact-info">
+          <div class="contact-item">📞 <a href="tel:+917337836586">+91 7337836586</a></div>
+          <div class="contact-item">✉️ <a href="mailto:privacy@tautsecure.com">privacy@tautsecure.com</a></div>
+          <div class="contact-item">📍 Bangalore | Mangalore | Kasaragod</div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <p>&copy; 2025 Taut Secure. All Rights Reserved.</p>
+        <p><a href="index.html">Home</a> | <a href="index.html#about">About</a> | <a href="index.html#services">Services</a> | <a href="index.html#contact">Contact</a> | <a href="terms.html">Terms of Service</a></p>
+      </div>
+    </footer>
+  </body>
+</html>

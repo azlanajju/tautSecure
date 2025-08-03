@@ -1,0 +1,3219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Taut Secure | Protecting What Matters Most</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --primary: #d90429;
+        --background: #fff;
+        --foreground: #111;
+        --card-bg: #f7f7f7;
+        --accent: #d90429;
+        --nav-bg: #fff;
+        --nav-fg: #111;
+        --shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+      }
+      [data-theme="dark"] {
+        --background: #111;
+        --foreground: #fff;
+        --card-bg: #181818;
+        --nav-bg: #181818;
+        --nav-fg: #fff;
+        --shadow: 0 2px 16px rgba(217, 4, 41, 0.15);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "Montserrat", Arial, sans-serif;
+        background: var(--background);
+        color: var(--foreground);
+        transition: background 0.3s, color 0.3s;
+      }
+      header {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        z-index: 100;
+        transition: all 0.3s ease;
+        width: 100vw;
+      }
+
+      .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem 2rem;
+      }
+
+      .logo img {
+        height: 50px;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 2rem;
+        margin: 0;
+        padding: 0;
+      }
+      nav a {
+        text-decoration: none;
+        color: var(--accent);
+        font-weight: 500;
+        font-size: 1rem;
+        transition: color 0.2s;
+      }
+      nav a:hover {
+        color: var(--primary);
+      }
+
+      .theme-switch {
+        position: relative;
+        width: 60px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 4px;
+        backdrop-filter: blur(10px);
+        overflow: hidden;
+      }
+
+      .theme-switch::before {
+        content: "☀️";
+        font-size: 14px;
+        transition: all 0.3s ease;
+        opacity: 1;
+        z-index: 1;
+      }
+
+      .theme-switch::after {
+        content: "🌙";
+        font-size: 14px;
+        transition: all 0.3s ease;
+        opacity: 0.5;
+        z-index: 1;
+      }
+
+      .theme-switch .toggle-slider {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 22px;
+        height: 22px;
+        background: linear-gradient(135deg, #fff, #ffed4e);
+        border-radius: 50%;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        z-index: 2;
+      }
+
+      .theme-switch:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(217, 4, 41, 0.3);
+        border-color: rgba(217, 4, 41, 0.5);
+      }
+
+      .theme-switch:hover .toggle-slider {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Dark theme styles */
+      body[data-theme="dark"] .theme-switch {
+        background: rgba(0, 0, 0, 0.3);
+        border-color: rgba(217, 4, 41, 0.5);
+      }
+
+      body[data-theme="dark"] .theme-switch .toggle-slider {
+        transform: translateX(30px);
+        background: linear-gradient(135deg, #1a1a1a, #333);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      }
+
+      body[data-theme="dark"] .theme-switch::before {
+        opacity: 0.5;
+      }
+
+      body[data-theme="dark"] .theme-switch::after {
+        opacity: 1;
+      }
+      .hero {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        min-width: 99vw;
+        background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(20, 20, 50, 0.6) 50%, rgba(0, 0, 0, 0.7) 100%), url("./assets/img/background.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        animation: heroFadeIn 1.5s ease-out;
+      }
+
+      /* Promotional Ribbon */
+      .promo-ribbon {
+        position: absolute;
+        bottom: 10px;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 2rem;
+      }
+
+      .ribbon-content {
+        background: linear-gradient(135deg, var(--accent), var(--primary));
+        padding: 0.5rem 2rem;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        position: relative;
+        overflow: hidden;
+        animation: ribbonSlideIn 1s ease-out 0.3s both;
+      }
+      .ribbon-content a {
+        text-decoration: none;
+      }
+
+      .ribbon-content::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        animation: ribbonShade 4s ease-in-out infinite;
+      }
+
+      @keyframes ribbonShade {
+        0%,
+        100% {
+          left: -100%;
+        }
+        50% {
+          left: 100%;
+        }
+      }
+
+      @keyframes ribbonSlideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .ribbon-text {
+        color: white;
+        font-weight: 700;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        white-space: nowrap;
+      }
+
+      .ribbon-btn {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        padding: 0.5rem 1.5rem;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        position: relative;
+        z-index: 1;
+      }
+
+      .ribbon-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.8);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+      }
+
+      .ribbon-bg-text {
+        position: absolute;
+        right: -50px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 3rem;
+        font-weight: 900;
+        color: rgba(255, 255, 255, 0.1);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        animation: ribbonTextFloat 4s ease-in-out infinite;
+        pointer-events: none;
+      }
+
+      @keyframes ribbonTextFloat {
+        0%,
+        100% {
+          opacity: 0.1;
+          transform: translateY(-50%) translateX(0px);
+        }
+        50% {
+          opacity: 0.2;
+          transform: translateY(-50%) translateX(-10px);
+        }
+      }
+
+      /* Responsive design for ribbon */
+      @media (max-width: 768px) {
+        .promo-ribbon {
+          padding: 0 1rem;
+        }
+        .ribbon-content {
+          padding: 0.6rem 1.5rem;
+          gap: 1rem;
+        }
+        .ribbon-text {
+          font-size: 0.9rem;
+        }
+        .ribbon-btn {
+          padding: 0.4rem 1.2rem;
+          font-size: 0.8rem;
+        }
+        .ribbon-bg-text {
+          font-size: 2rem;
+          right: -30px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .ribbon-content {
+          flex-direction: column;
+          gap: 0.5rem;
+          padding: 0.8rem 1.5rem;
+        }
+        .ribbon-text {
+          font-size: 0.8rem;
+        }
+        .ribbon-btn {
+          padding: 0.3rem 1rem;
+          font-size: 0.7rem;
+        }
+        .ribbon-bg-text {
+          font-size: 1.5rem;
+          right: -20px;
+        }
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to top, rgba(249, 1, 1, 0.405), transparent, transparent, transparent);
+        pointer-events: none;
+        z-index: 0;
+      }
+      .hero::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        background: var(--background);
+        clip-path: polygon(0 100%, 50% 0, 100% 100%);
+        z-index: 1;
+        filter: drop-shadow(0 0 20px rgba(217, 4, 41, 0.3)) drop-shadow(0 0 100px rgba(217, 4, 41, 0.9));
+      }
+
+      /* Animated Background Text Elements */
+      .hero-bg-text {
+        position: absolute;
+        font-size: 8rem;
+        font-weight: 900;
+        color: rgba(255, 255, 255, 0.03);
+        text-transform: uppercase;
+        letter-spacing: 0.5rem;
+        z-index: 1;
+        pointer-events: none;
+        animation: textFloat 8s ease-in-out infinite;
+        transform: rotate(-15deg);
+      }
+
+      .hero-bg-text-1 {
+        top: 10%;
+        left: -20%;
+        animation-delay: 0s;
+      }
+
+      .hero-bg-text-2 {
+        top: 30%;
+        right: -15%;
+        animation-delay: 1.5s;
+        transform: rotate(15deg);
+      }
+
+      .hero-bg-text-3 {
+        bottom: 20%;
+        left: 10%;
+        animation-delay: 3s;
+        transform: rotate(-10deg);
+      }
+
+      .hero-bg-text-4 {
+        top: 60%;
+        right: 5%;
+        animation-delay: 4.5s;
+        transform: rotate(20deg);
+      }
+
+      .hero-bg-text-5 {
+        bottom: 40%;
+        left: 50%;
+        animation-delay: 6s;
+        transform: rotate(-5deg);
+      }
+
+      @keyframes textFloat {
+        0%,
+        100% {
+          opacity: 0.03;
+          transform: translateY(0px) rotate(-15deg);
+        }
+        50% {
+          opacity: 0.08;
+          transform: translateY(-20px) rotate(-15deg);
+        }
+      }
+
+      .hero-bg-text-2 {
+        animation-name: textFloat2;
+      }
+
+      @keyframes textFloat2 {
+        0%,
+        100% {
+          opacity: 0.03;
+          transform: translateY(0px) rotate(15deg);
+        }
+        50% {
+          opacity: 0.08;
+          transform: translateY(-20px) rotate(15deg);
+        }
+      }
+
+      .hero-bg-text-3 {
+        animation-name: textFloat3;
+      }
+
+      @keyframes textFloat3 {
+        0%,
+        100% {
+          opacity: 0.03;
+          transform: translateY(0px) rotate(-10deg);
+        }
+        50% {
+          opacity: 0.08;
+          transform: translateY(-20px) rotate(-10deg);
+        }
+      }
+
+      .hero-bg-text-4 {
+        animation-name: textFloat4;
+      }
+
+      @keyframes textFloat4 {
+        0%,
+        100% {
+          opacity: 0.03;
+          transform: translateY(0px) rotate(20deg);
+        }
+        50% {
+          opacity: 0.08;
+          transform: translateY(-20px) rotate(20deg);
+        }
+      }
+
+      .hero-bg-text-5 {
+        animation-name: textFloat5;
+      }
+
+      @keyframes textFloat5 {
+        0%,
+        100% {
+          opacity: 0.03;
+          transform: translateY(0px) rotate(-5deg);
+        }
+        50% {
+          opacity: 0.08;
+          transform: translateY(-20px) rotate(-5deg);
+        }
+      }
+
+      /* Responsive design for background text */
+      @media (max-width: 1200px) {
+        .hero-bg-text {
+          font-size: 6rem;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .hero-bg-text {
+          font-size: 4rem;
+        }
+        .hero-bg-text-1 {
+          left: -30%;
+        }
+        .hero-bg-text-2 {
+          right: -25%;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .hero-bg-text {
+          font-size: 2.5rem;
+          letter-spacing: 0.2rem;
+        }
+        .hero-bg-text-1 {
+          left: -40%;
+          top: 5%;
+        }
+        .hero-bg-text-2 {
+          right: -35%;
+          top: 25%;
+        }
+        .hero-bg-text-3 {
+          left: 5%;
+          bottom: 15%;
+        }
+        .hero-bg-text-4 {
+          right: 0%;
+          top: 55%;
+        }
+        .hero-bg-text-5 {
+          left: 45%;
+          bottom: 35%;
+        }
+      }
+
+      @keyframes heroFadeIn {
+        from {
+          opacity: 0;
+          transform: scale(1.05);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      /* no need .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.1) 30%, rgba(0, 0, 0, 0.05) 60%, rgba(0, 0, 0, 0.1) 100%);
+        z-index: 1;
+        animation: shadowPulse 4s ease-in-out infinite;
+      } */
+      @keyframes shadowPulse {
+        0%,
+        100% {
+          opacity: 0.8;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+      .hero-content {
+        position: relative;
+        z-index: 5;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        text-align: center;
+        max-width: 800px;
+        padding: 3rem;
+        animation: contentSlideIn 1s ease-out 0.5s both;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        height: 70vh;
+      }
+      @keyframes contentSlideIn {
+        from {
+          opacity: 0;
+          transform: translateX(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      .hero-logo {
+        width: auto;
+        height: 100px;
+        margin-bottom: 1.5rem;
+        animation: logoFloat 9s ease-in-out infinite;
+        /* filter: drop-shadow(0 10px 20px rgba(217, 4, 41, 0.4)); */
+        transition: transform 0.3s ease;
+      }
+      .hero-logo:hover {
+        transform: scale(1.1) rotate(5deg);
+      }
+      .hero-visual {
+        position: relative;
+        z-index: 2;
+        width: 400px;
+        height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .tech-grid {
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle at 20% 20%, rgba(217, 4, 41, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255, 107, 107, 0.2) 0%, transparent 50%);
+        border-radius: 50%;
+        position: relative;
+        animation: gridRotate 20s linear infinite;
+      }
+      .tech-grid::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 200px;
+        height: 200px;
+        border: 2px solid rgba(217, 4, 41, 0.3);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        animation: gridPulse 3s ease-in-out infinite;
+      }
+      .tech-grid::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100px;
+        height: 100px;
+        border: 1px solid rgba(255, 107, 107, 0.4);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        animation: gridPulse 2s ease-in-out infinite reverse;
+      }
+      @keyframes gridRotate {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes gridPulse {
+        0%,
+        100% {
+          opacity: 0.3;
+          transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+          opacity: 0.8;
+          transform: translate(-50%, -50%) scale(1.1);
+        }
+      }
+      @keyframes logoFloat {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .hero-details {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        animation: detailsSlideIn 1s ease-out 2s both;
+      }
+      .detail-item {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        font-size: 1.2rem;
+        color: #fff;
+        font-weight: 500;
+        opacity: 0.8;
+      }
+      .detail-icon {
+        font-size: 1.4rem;
+        color: var(--primary);
+      }
+      .detail-text {
+        color: #fff;
+      }
+      .hero-features {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 2.5rem;
+        animation: featuresSlideIn 1s ease-out 2.5s both;
+        justify-content: center;
+      }
+      .feature-tag {
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+        padding: 0.8rem 1.5rem;
+        border-radius: 30px;
+        font-size: 1rem;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(15px);
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+      .feature-tag:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-2px);
+        border-color: var(--primary);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      }
+
+      /* Call to Action Button */
+      .hero-cta {
+        margin-top: 2rem;
+        animation: ctaSlideIn 1s ease-out 1s both;
+      }
+
+      .cta-button {
+        background: linear-gradient(135deg, var(--primary), #ff6b6b);
+        color: white;
+        border: none;
+        padding: 1rem 2.5rem;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        box-shadow: 0 8px 25px rgba(217, 4, 41, 0.4);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cta-button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s ease;
+      }
+
+      .cta-button:hover::before {
+        left: 100%;
+      }
+
+      .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(217, 4, 41, 0.6);
+      }
+
+      .cta-text {
+        position: relative;
+        z-index: 1;
+      }
+
+      .cta-arrow {
+        position: relative;
+        z-index: 1;
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
+      }
+
+      .cta-button:hover .cta-arrow {
+        transform: translateX(5px);
+      }
+      @keyframes detailsSlideIn {
+        from {
+          opacity: 0;
+          transform: translateX(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      @keyframes featuresSlideIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes subtitleFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .hero .cta {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: flex-start;
+        animation: ctaSlideIn 1s ease-out 3s both;
+      }
+      @keyframes ctaSlideIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .btn {
+        background: rgba(255, 255, 255, 0.9);
+        color: var(--primary);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 1.2rem 3rem;
+        border-radius: 50px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        letter-spacing: 1px;
+        backdrop-filter: blur(10px);
+      }
+      .btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+      }
+      .btn:hover {
+        background: rgba(255, 255, 255, 1);
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+      .btn:hover::before {
+        left: 100%;
+      }
+      .btn:active {
+        transform: translateY(-1px) scale(1.02);
+      }
+      section {
+        max-width: 1200px;
+        margin: 3rem auto;
+        padding: 0 2rem;
+      }
+      .section-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 1.5rem;
+        text-align: center;
+        letter-spacing: 1px;
+      }
+      .section-title-reviews {
+        width: 99vw;
+      }
+      .about,
+      .services-section,
+      .solutions-section,
+      .testimonials-section,
+      .brands-section,
+      .videos-section,
+      .contact-section {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        align-items: center;
+        justify-content: center;
+        min-height: 400px;
+        padding: 2rem 0;
+      }
+      .section-watermark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 999 !important;
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        padding: 0;
+        overflow: hidden;
+        margin-top: -200px;
+      }
+      .watermark-left,
+      .watermark-right {
+        font-size: 5rem;
+        font-weight: 700;
+        color: rgba(217, 4, 41, 0.08);
+        white-space: nowrap;
+        letter-spacing: 2px;
+        position: absolute;
+        right: 0;
+        overflow-y: hidden;
+      }
+      .watermark-left {
+        transform: rotate(-90deg);
+        left: -600px;
+      }
+      .watermark-right {
+        transform: rotate(90deg);
+        right: rem;
+      }
+      .section-content {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        align-items: flex-start;
+        justify-content: center;
+        width: 100%;
+      }
+      .about-text,
+      .section-text {
+        flex: 1 1 350px;
+        font-size: 1.1rem;
+        line-height: 1.7;
+        background: var(--card-bg);
+        border-radius: 18px;
+        padding: 2rem;
+        box-shadow: var(--shadow);
+      }
+      .about-img img {
+        width: 400px;
+        object-fit: cover;
+        object-position: top;
+        height: 320px;
+        background: var(--card-bg);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+        color: var(--primary);
+        box-shadow: var(--shadow);
+      }
+      .about-header,
+      .section-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      .about-header-line,
+      .section-header-line {
+        width: 60px;
+        height: 3px;
+        background: var(--primary);
+      }
+      .about-title,
+      .section-title-inline {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin: 0;
+      }
+      .about-title span {
+        color: black;
+      }
+      .services {
+        position: relative;
+        margin-top: 2rem;
+        overflow: hidden;
+        min-width: 99vw;
+        /* background: var(--background); */
+      }
+
+      .services-row {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 2rem;
+        padding: 1rem 0;
+      }
+
+      .services-row-1 {
+        transform: translateX(0);
+        transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .services-row {
+        cursor: grab;
+        user-select: none;
+      }
+
+      .service-card {
+        flex: 0 0 350px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 2.5rem 2rem;
+        border-radius: 25px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        /* transform: scale(1); */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-height: 220px;
+        background: var(--card-bg);
+        background: var(--card-bg);
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+        padding: 2rem 1.2rem;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .service-card:hover::before {
+        left: 100%;
+      }
+
+      .service-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 0 30px rgba(217, 4, 41, 0.3);
+        border-color: rgba(217, 4, 41, 0.5);
+      }
+
+      @keyframes activeGlow {
+        0% {
+          opacity: 0.5;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      .service-icon {
+        position: relative;
+        left: 10px;
+      }
+      .service-icon img {
+        height: 50px;
+        width: 50px;
+      }
+
+      .service-title {
+        font-weight: 700;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        color: var(--foreground);
+        transition: all 0.3s ease;
+        /* margin-top: 20px; */
+      }
+
+      .service-desc {
+        font-size: 0.8rem;
+        color: grey;
+        /* line-height: 1.6; */
+        transition: all 0.3s ease;
+        font-style: italic;
+      }
+
+      .vision {
+        background: var(--card-bg);
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+        padding: 2rem;
+        margin: 2rem 0;
+        text-align: center;
+        font-size: 1.2rem;
+        color: var(--foreground);
+      }
+      .testimonials-section {
+        width: 99vw;
+      }
+      #projects {
+        margin: 0px;
+        padding: 0px;
+      }
+      /* Google Reviews Styling */
+      .google-reviews-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background: var(--background);
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e0e0e0;
+      }
+
+      .google-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 500;
+        color: #5f6368;
+        font-size: 1.1rem;
+      }
+
+      .rating-summary {
+        flex: 1;
+      }
+
+      .overall-rating {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .rating-number {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #202124;
+      }
+
+      .stars {
+        display: flex;
+        gap: 2px;
+      }
+
+      .star {
+        color: #fbbc04;
+        font-size: 1.2rem;
+      }
+
+      .total-reviews {
+        color: #5f6368;
+        font-size: 0.9rem;
+        margin-left: 0.5rem;
+      }
+
+      .testimonials {
+        display: flex;
+        gap: 1rem;
+        overflow-x: auto;
+        padding: 1rem 0;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        padding: 10px 50px;
+        padding-bottom: 50px;
+        background: transparent;
+      }
+      .testimonials {
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+      }
+
+      .testimonials::-webkit-scrollbar {
+        display: none; /* Chrome, Safari and Opera */
+      }
+
+      .testimonials::-webkit-scrollbar {
+        height: 8px;
+      }
+
+      .testimonials::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+      }
+
+      .testimonials::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 4px;
+      }
+
+      .testimonials::-webkit-scrollbar-thumb:hover {
+        background: #a8a8a8;
+      }
+
+      .testimonial-card {
+        background: linear-gradient(135deg, var(--background) 0%, var(--background) 100%);
+        border-radius: 0;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.05);
+        padding: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        flex: 0 0 450px;
+        min-width: 450px;
+        max-height: 280px;
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+      }
+
+      .testimonial-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #4285f4, #34a853, #fbbc04, #ea4335);
+        background: var(--accent);
+        border-radius: 0;
+      }
+
+      .testimonial-card::after {
+        content: '"';
+        position: absolute;
+        top: 1rem;
+        right: 1.5rem;
+        font-size: 4rem;
+        color: rgba(66, 133, 244, 0.1);
+        font-family: serif;
+        font-weight: bold;
+      }
+
+      .testimonial-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 8px 32px rgba(66, 133, 244, 0.1);
+        border-color: rgba(66, 133, 244, 0.3);
+      }
+
+      .review-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .reviewer-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 0;
+        background: linear-gradient(135deg, #4285f4, #34a853, #fbbc04);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+        font-size: 1.2rem;
+        box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        transition: all 0.3s ease;
+        border-radius: 50% !important;
+        overflow: hidden;
+      }
+
+      .testimonial-card:hover .reviewer-avatar {
+        transform: scale(1.1);
+        box-shadow: 0 8px 20px rgba(66, 133, 244, 0.4);
+      }
+
+      .reviewer-info {
+        flex: 1;
+      }
+
+      .reviewer-name {
+        font-weight: 600;
+        color: #202124;
+        font-size: 0.95rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .review-date {
+        color: #5f6368;
+        font-size: 0.8rem;
+      }
+
+      .review-rating {
+        display: flex;
+        gap: 2px;
+        margin-bottom: 0.75rem;
+        padding: 0.25rem 0;
+      }
+
+      .review-star {
+        color: #fbbc04;
+        font-size: 1rem;
+        text-shadow: 0 1px 2px rgba(251, 188, 4, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .testimonial-card:hover .review-star {
+        transform: scale(1.1);
+        text-shadow: 0 2px 4px rgba(251, 188, 4, 0.5);
+      }
+
+      .testimonial-quote {
+        font-size: 0.9rem;
+        color:var(--foreground);
+        line-height: 1.5;
+        margin-bottom: 1rem;
+        font-style: italic;
+        position: relative;
+        z-index: 1;
+        max-height: 80px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+      }
+
+      .review-actions {
+        display: flex;
+        gap: 0.75rem;
+        padding-top: 0.75rem;
+        border-top: 1px solid rgba(241, 243, 244, 0.8);
+        position: relative;
+        z-index: 1;
+      }
+
+      .action-btn {
+        background: rgba(66, 133, 244, 0.05);
+        border: 1px solid rgba(66, 133, 244, 0.1);
+        color: #5f6368;
+        font-size: 0.8rem;
+        cursor: pointer;
+        padding: 0.5rem 0.75rem;
+        border-radius: 0;
+        transition: all 0.3s ease;
+        font-weight: 500;
+      }
+
+      .action-btn:hover {
+        background: rgba(66, 133, 244, 0.1);
+        border-color: rgba(66, 133, 244, 0.3);
+        color: #4285f4;
+        transform: translateY(-1px);
+      }
+
+      .load-more-reviews {
+        text-align: center;
+        margin-top: 2rem;
+      }
+
+      .google-btn {
+        background: #fff;
+        border: 1px solid #dadce0;
+        color: #5f6368;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
+
+      .google-btn:hover {
+        background: #f8f9fa;
+        border-color: #c6c6c6;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+      }
+
+      .google-btn svg {
+        transition: transform 0.2s ease;
+      }
+
+      .google-btn:hover svg {
+        transform: translateY(2px);
+      }
+
+      /* Sponsor Section Styling */
+      .sponsor-title {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .sponsor-accent {
+        color: var(--primary);
+        font-size: 1rem;
+        font-weight: 500;
+        position: relative;
+        display: inline-block;
+        margin-bottom: 0.5rem;
+      }
+
+      .sponsor-accent::before,
+      .sponsor-accent::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 30px;
+        height: 2px;
+        background: var(--primary);
+        transform: translateY(-50%);
+      }
+
+      .sponsor-accent::before {
+        right: calc(100% + 10px);
+      }
+
+      .sponsor-accent::after {
+        left: calc(100% + 10px);
+      }
+
+      .sponsor-title h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--foreground);
+        margin: 0;
+        letter-spacing: 1px;
+      }
+
+      .brands-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 3rem;
+        margin: 2rem 0;
+        flex-wrap: wrap;
+      }
+
+      .brand-logo {
+        width: 120px;
+        height: 60px;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+        filter: grayscale(100%);
+        opacity: 0.7;
+      }
+
+      .brand-logo:hover {
+        transform: scale(1.1);
+        filter: grayscale(0%);
+        opacity: 1;
+      }
+
+      /* Solutions Section Styling */
+      .solutions-container {
+        display: flex;
+        gap: 3rem;
+        margin: 2rem 0;
+        min-height: 600px;
+      }
+
+      .solutions-sidebar {
+        flex: 0 0 300px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .solution-option {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .solution-option:hover {
+        background: rgba(217, 4, 41, 0.1);
+        border-color: rgba(217, 4, 41, 0.3);
+        transform: translateX(10px);
+      }
+
+      .solution-option.active {
+        background: linear-gradient(135deg, rgba(217, 4, 41, 0.2), rgba(255, 107, 107, 0.1));
+        border-color: rgba(217, 4, 41, 0.5);
+        box-shadow: 0 8px 25px rgba(217, 4, 41, 0.2);
+      }
+
+      .solution-icon {
+        font-size: 2rem;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        transition: all 0.3s ease;
+      }
+
+      .solution-option.active .solution-icon {
+        background: rgba(217, 4, 41, 0.3);
+        transform: scale(1.1);
+      }
+
+      .solution-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--foreground);
+        transition: all 0.3s ease;
+      }
+
+      .solution-option.active .solution-title {
+        color: var(--primary);
+      }
+
+      .solutions-content {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 2.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
+        transition: 0.5s;
+      }
+
+      .solutions-content::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, rgba(217, 4, 41, 0.1) 0%, transparent 70%);
+        border-radius: 50%;
+        z-index: 0;
+      }
+
+      .solution-panel {
+        display: none;
+        animation: fadeIn 0.5s ease-in-out;
+      }
+
+      .solution-panel.active {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .solution-panel h3 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 2rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .solution-features {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        z-index: 1;
+        max-height: 400px;
+        overflow: hidden;
+        transition: max-height 0.5s ease-in-out;
+      }
+
+      .solution-features.collapsed {
+        max-height: 200px;
+        mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+      }
+
+      .solution-features.expanded {
+        max-height: none;
+        mask-image: none;
+        -webkit-mask-image: none;
+      }
+
+      .feature-item {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        padding: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .feature-item:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(217, 4, 41, 0.3);
+        transform: translateY(-5px);
+      }
+
+      .feature-item h4 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+
+      .feature-item p {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: var(--foreground);
+        opacity: 0.9;
+      }
+
+      .read-more-btn {
+        display: inline-block;
+        background: linear-gradient(135deg, var(--primary), #ff6b6b);
+        color: white;
+        padding: 0.8rem 2rem;
+        border-radius: 25px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 1.5rem;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(217, 4, 41, 0.3);
+        position: relative;
+        z-index: 1;
+      }
+
+      .read-more-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(217, 4, 41, 0.4);
+      }
+
+      .read-more-btn.expanded {
+        background: linear-gradient(135deg, #666, #888);
+      }
+
+      /* Responsive design for solutions */
+      @media (max-width: 1200px) {
+        .solutions-container {
+          flex-direction: column;
+          gap: 2rem;
+        }
+        .solutions-sidebar {
+          flex: none;
+          width: 100%;
+        }
+        .solutions-sidebar {
+          display: flex;
+          gap: 1rem;
+          padding: 1.5rem;
+        }
+        .solution-option {
+          flex: 1;
+          flex-direction: column;
+          text-align: center;
+          padding: 1rem;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .solutions-sidebar {
+          flex-direction: column;
+        }
+        .solution-panel h3 {
+          font-size: 1.5rem;
+        }
+        .feature-item {
+          padding: 1rem;
+        }
+      }
+
+      /* Responsive design for brands */
+      @media (max-width: 900px) {
+        .brands-row {
+          gap: 2rem;
+        }
+        .brand-logo {
+          width: 100px;
+          height: 50px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .brands-row {
+          gap: 1.5rem;
+        }
+        .brand-logo {
+          width: 80px;
+          height: 40px;
+        }
+        .sponsor-title h2 {
+          font-size: 2rem;
+        }
+        .sponsor-accent::before,
+        .sponsor-accent::after {
+          width: 20px;
+        }
+      }
+
+      .brands {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        justify-content: center;
+        align-items: center;
+        margin: 2rem 0;
+      }
+      .brand-logo {
+        width: 80px;
+        height: 40px;
+        background:transparent;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: var(--primary);
+        box-shadow: var(--shadow);
+      }
+      .videos {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        justify-content: center;
+        margin: 2rem 0;
+      }
+      .video-card {
+        width: 320px;
+        height: 180px;
+        background: var(--card-bg);
+        border-radius: 14px;
+        box-shadow: var(--shadow);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        font-size: 2rem;
+      }
+      /* Modern Contact Section Styling */
+      .contact-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        margin: 2rem 0;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .contact-info-section {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 2.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .contact-info-section h3 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+
+      .contact-info-section > p {
+        font-size: 1.1rem;
+        color: var(--foreground);
+        opacity: 0.8;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+      }
+
+      .contact-methods {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+      }
+
+      .contact-method {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .contact-method:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: var(--primary);
+        transform: translateY(-2px);
+      }
+
+      .contact-icon {
+        font-size: 2rem;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, var(--primary), #ff6b6b);
+        border-radius: 15px;
+        color: white;
+      }
+
+      .contact-details h4 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--foreground);
+        margin-bottom: 0.5rem;
+      }
+
+      .contact-details p,
+      .contact-details a {
+        color: var(--foreground);
+        opacity: 0.8;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .contact-details a:hover {
+        color: var(--primary);
+        opacity: 1;
+      }
+
+      /* Contact Form Section with Chat Interface */
+      .contact-form-section {
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(217, 4, 41, 0.1));
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .contact-form-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+        border-radius: 50%;
+        z-index: 0;
+      }
+
+      .form-container {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Chat Header */
+      .chat-header {
+        background: linear-gradient(135deg, var(--accent), #d90429);
+        padding: 1rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+        border-radius: 20px 20px 0 0;
+      }
+
+      .chat-status {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+      }
+
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        background: #10b981;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+
+      .chat-close {
+        font-size: 1.5rem;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+      }
+
+      .chat-close:hover {
+        opacity: 1;
+      }
+
+      /* Chat Messages */
+      .chat-messages {
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.02);
+        max-height: 300px;
+        overflow-y: auto;
+      }
+
+      .message {
+        display: flex;
+        align-items: flex-end;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .message.user-message {
+        flex-direction: row;
+      }
+
+      .message.support-message {
+        flex-direction: row-reverse;
+      }
+
+      .message-avatar {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        background: linear-gradient(135deg, var(--primary), #ff6b6b);
+        color: white;
+        flex-shrink: 0;
+      }
+
+      .message-bubble {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 0.8rem 1rem;
+        border-radius: 18px;
+        max-width: 70%;
+        position: relative;
+      }
+
+      .user-message .message-bubble {
+        background: linear-gradient(135deg, #d2215f, var(--accent));
+        color: white;
+        border-bottom-left-radius: 5px;
+      }
+
+      .support-message .message-bubble {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--foreground);
+        border-bottom-right-radius: 5px;
+      }
+
+      .message-bubble p {
+        margin: 0 0 0.3rem 0;
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+
+      .message-time {
+        font-size: 0.7rem;
+        opacity: 0.7;
+      }
+
+      /* Chat Input Area */
+      .chat-input-area {
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .input-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .form-group {
+        position: relative;
+      }
+
+      .input-wrapper {
+        position: relative;
+      }
+
+      .input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .input-wrapper input,
+      .input-wrapper textarea,
+      .input-wrapper select {
+        width: 100%;
+        padding: 0.8rem 1rem 0.8rem 3rem;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--foreground);
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+      }
+
+      .input-wrapper input:focus,
+      .input-wrapper textarea:focus,
+      .input-wrapper select:focus {
+        outline: none;
+        border-color: var(--primary);
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 0 0 3px rgba(217, 4, 41, 0.1);
+      }
+
+      .input-icon {
+        position: absolute;
+        left: 0.8rem;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1rem;
+        opacity: 0.7;
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      .input-wrapper textarea {
+        padding-top: 0.8rem;
+        padding-bottom: 0.8rem;
+        resize: none;
+      }
+
+      .input-wrapper textarea + .input-icon {
+        top: 1rem;
+        transform: none;
+      }
+
+      .submit-btn {
+        background: linear-gradient(135deg, var(--accent), #d2215f);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        width: 100%;
+        margin-top: 0.5rem;
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+        background: linear-gradient(135deg, var(--accent), #ff6b6b);
+      }
+
+      .btn-icon {
+        transition: transform 0.3s ease;
+        font-size: 1.1rem;
+      }
+
+      .submit-btn:hover .btn-icon {
+        transform: translateX(3px);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 900px) {
+        .contact-container {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        .input-row {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .contact-info-section {
+          padding: 1.5rem;
+        }
+
+        .contact-info-section h3 {
+          font-size: 1.5rem;
+        }
+
+        .contact-method {
+          padding: 1rem;
+        }
+
+        .contact-icon {
+          width: 50px;
+          height: 50px;
+          font-size: 1.5rem;
+        }
+
+        .chat-messages {
+          max-height: 150px;
+          padding: 1rem;
+        }
+
+        .message-bubble {
+          max-width: 85%;
+        }
+
+        .chat-input-area {
+          padding: 1rem;
+        }
+
+        .input-wrapper input,
+        .input-wrapper textarea,
+        .input-wrapper select {
+          font-size: 0.85rem;
+          padding: 0.7rem 0.8rem 0.7rem 2.5rem;
+        }
+
+        .input-icon {
+          font-size: 0.9rem;
+          left: 0.6rem;
+        }
+      }
+      .contact-form button:hover {
+        background: #b00322;
+      }
+      footer {
+        background: var(--nav-bg);
+        color: var(--nav-fg);
+        text-align: center;
+        padding: 2rem 1rem 1rem 1rem;
+        font-size: 1rem;
+        border-top: 1px solid #eee;
+        margin-top: 3rem;
+      }
+      @media (max-width: 900px) {
+        .about,
+        .contact,
+        .services-section,
+        .solutions-section,
+        .testimonials-section,
+        .brands-section,
+        .videos-section,
+        .contact-section {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .section-content {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .navbar {
+          flex-direction: column;
+          gap: 1rem;
+        }
+        .watermark-left,
+        .watermark-right {
+          font-size: 4rem;
+        }
+      }
+      @media (max-width: 900px) {
+        .hero {
+          padding: 0 2rem;
+          justify-content: center;
+        }
+        .hero::after {
+          height: 80px;
+          clip-path: polygon(0 0, 50% 100%, 100% 0);
+          box-shadow: inset 0 0 15px rgba(217, 4, 41, 0.3), 0 0 25px rgba(217, 4, 41, 0.2);
+        }
+        .hero::before {
+          height: 80px;
+          clip-path: polygon(0 100%, 50% 0, 100% 100%);
+          box-shadow: inset 0 0 12px rgba(217, 4, 41, 0.2), 0 0 20px rgba(217, 4, 41, 0.1);
+        }
+        .hero-content {
+          padding: 0 1rem;
+          max-width: 600px;
+        }
+        .hero h1 {
+          font-size: 3.5rem;
+        }
+        .hero h2 {
+          font-size: 2rem;
+        }
+        .hero-details {
+          gap: 0.8rem;
+        }
+        .detail-item {
+          font-size: 1.1rem;
+        }
+        .hero-features {
+          gap: 0.8rem;
+        }
+        .feature-tag {
+          padding: 0.7rem 1.3rem;
+          font-size: 0.9rem;
+        }
+        .btn {
+          padding: 1rem 2.5rem;
+          font-size: 1.1rem;
+        }
+      }
+      @media (max-width: 600px) {
+        .hero {
+          justify-content: center;
+          text-align: center;
+          padding: 0 1rem;
+        }
+        .hero::after {
+          height: 60px;
+          clip-path: polygon(0 0, 50% 100%, 100% 0);
+          box-shadow: inset 0 0 10px rgba(217, 4, 41, 0.3), 0 0 20px rgba(217, 4, 41, 0.2);
+        }
+        .hero::before {
+          height: 60px;
+          clip-path: polygon(0 100%, 50% 0, 100% 100%);
+          box-shadow: inset 0 0 8px rgba(217, 4, 41, 0.2), 0 0 15px rgba(217, 4, 41, 0.1);
+        }
+        .hero-content {
+          align-items: center;
+          text-align: center;
+          max-width: 100%;
+          padding: 0 1rem;
+        }
+        .hero h1 {
+          font-size: 3rem;
+        }
+        .hero h2 {
+          font-size: 1.8rem;
+        }
+        .hero-logo {
+          width: 80px;
+          height: 80px;
+        }
+        .hero-details {
+          align-items: center;
+        }
+        .hero-features {
+          justify-content: center;
+        }
+        .hero .cta {
+          justify-content: center;
+        }
+        .btn {
+          padding: 0.9rem 2rem;
+          font-size: 1rem;
+        }
+        .section-title {
+          font-size: 1.3rem;
+        }
+        .navbar {
+          padding: 1rem;
+        }
+        section {
+          padding: 0 0.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="navbar">
+        <div class="logo"><img src="./assets/img/logo.png" alt="" /></div>
+        <nav>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#solutions">Solutions</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+          </ul>
+        </nav>
+        <button class="theme-switch" id="themeSwitch" title="Switch theme">
+          <div class="toggle-slider"></div>
+        </button>
+      </div>
+    </header>
+    <main>
+      <section class="hero" id="home">
+      
+        <div class="hero-content">
+          <img src="./assets/img/logo.png" alt="Taut Secure Logo" class="hero-logo" />
+
+          <div class="hero-details">
+            <div class="detail-item">
+              <span class="detail-icon">📍</span>
+              <span class="detail-text">Bangalore | Mangalore | Kasaragod</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">📞</span>
+              <span class="detail-text">+91 7337836586</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">✉️</span>
+              <span class="detail-text">info@tautsecure.com</span>
+            </div>
+          </div>
+
+          <div class="hero-features">
+            <div class="feature-tag">🔒 Advanced Security</div>
+            <div class="feature-tag">🏠 Home Automation</div>
+            <div class="feature-tag">📹 CCTV Systems</div>
+          </div>
+        </div>
+        <!-- Promotional Ribbon -->
+        <div class="promo-ribbon">
+          <div class="ribbon-content">
+            <span class="ribbon-text">Get a free quote:</span>
+            <a href="tel:+91 7337836586" class="ribbon-btn">Call us</a>
+          </div>
+          <div class="ribbon-bg-text">Call us</div>
+        </div>
+      </section>
+      <section id="about">
+        <div class="section-title">About Taut Secure</div>
+        <div class="about">
+          <div class="section-watermark">
+            <div class="watermark-left">ABOUT</div>
+            <div class="watermark-right">US</div>
+          </div>
+          <div class="section-content">
+            <div class="about-text">
+              <div class="about-header">
+                <div class="about-header-line"></div>
+                <h3 class="about-title"><span>TAUT</span> SECURE</h3>
+              </div>
+              <p>Taut Secure is a security system company that specializes in providing a range of security products and services to protect individuals and organizations from various security threats.</p>
+              <p>We offer advanced security solutions, including surveillance cameras, access control systems, Conference system burglar alarms, fire alarms, and monitoring services, among others.</p>
+            </div>
+            <div class="about-img">
+              <img src="./assets/img/officebg.png" alt="" />
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="services">
+        <div class="section-title">Our Services</div>
+        <div class="services-section">
+          <div class="section-watermark">
+            <div class="watermark-left">SERVICES</div>
+            <div class="watermark-right">SECURITY</div>
+          </div>
+          <div class="section-content">
+            <div class="services">
+              <!-- First Row - Scrolling Right -->
+              <div class="services-row services-row-1">
+                <div class="service-card">
+                  <div class="service-icon"><img src="./assets/img/icons/icon1.png" alt="" /></div>
+                  <div class="service-title">CCTV Services</div>
+                  <div class="service-desc">Advanced surveillance systems for complete security monitoring</div>
+                </div>
+                <div class="service-card">
+                  <div class="service-icon"><img src="./assets/img/icons/icon1.png" alt="" /></div>
+                  <div class="service-title">Gate Barrier System</div>
+                  <div class="service-desc">Automated access control for secure entry management</div>
+                </div>
+                <div class="service-card">
+                  <div class="service-icon"><img src="./assets/img/icons/icon1.png" alt="" /></div>
+                  <div class="service-title">Intrusion Alarm System</div>
+                  <div class="service-desc">Early warning systems for unauthorized access detection</div>
+                </div>
+                <div class="service-card">
+                  <div class="service-icon"><img src="./assets/img/icons/icon1.png" alt="" /></div>
+                  <div class="service-title">Public Address System</div>
+                  <div class="service-desc">Clear communication solutions for emergency announcements</div>
+                </div>
+                <div class="service-card">
+                  <div class="service-icon"><img src="./assets/img/icons/icon1.png" alt="" /></div>
+                  <div class="service-title">POS & Billing Machine</div>
+                  <div class="service-desc">Secure payment processing and billing solutions</div>
+                </div>
+                <div class="service-card">
+                  <div class="service-icon"><img src="./assets/img/icons/icon1.png" alt="" /></div>
+                  <div class="service-title">Home Automation</div>
+                  <div class="service-desc">Smart home integration for enhanced convenience</div>
+                </div>
+                <div class="service-card">
+                  <div class="service-icon"><img src="./assets/img/icons/icon1.png" alt="" /></div>
+                  <div class="service-title">Conference System</div>
+                  <div class="service-desc">Professional audio solutions for meetings and events</div>
+                </div>
+                <div class="service-card">
+                  <div class="service-icon"><img src="./assets/img/icons/icon1.png" alt="" /></div>
+                  <div class="service-title">Smart Class System</div>
+                  <div class="service-desc">Interactive learning environments for modern education</div>
+                </div>
+                <!-- Duplicate cards for seamless scrolling -->
+                <div class="service-card">
+                  <div class="service-icon"><img src="./assets/img/icons/icon1.png" alt="" /></div>
+                  <div class="service-title">CCTV Services</div>
+                  <div class="service-desc">Advanced surveillance systems for complete security monitoring</div>
+                </div>
+                <div class="service-card">
+                  <div class="service-icon"><img src="./assets/img/icons/icon1.png" alt="" /></div>
+                  <div class="service-title">Gate Barrier System</div>
+                  <div class="service-desc">Automated access control for secure entry management</div>
+                </div>
+                <div class="service-card">
+                  <div class="service-icon"><img src="./assets/img/icons/icon1.png" alt="" /></div>
+                  <div class="service-title">Intrusion Alarm System</div>
+                  <div class="service-desc">Early warning systems for unauthorized access detection</div>
+                </div>
+                <div class="service-card">
+                  <div class="service-icon"><img src="./assets/img/icons/icon1.png" alt="" /></div>
+                  <div class="service-title">Public Address System</div>
+                  <div class="service-desc">Clear communication solutions for emergency announcements</div>
+                </div>
+                <div class="service-card">
+                  <div class="service-icon"><img src="./assets/img/icons/icon1.png" alt="" /></div>
+                  <div class="service-title">POS & Billing Machine</div>
+                  <div class="service-desc">Secure payment processing and billing solutions</div>
+                </div>
+                <div class="service-card">
+                  <div class="service-icon"><img src="./assets/img/icons/icon1.png" alt="" /></div>
+                  <div class="service-title">Home Automation</div>
+                  <div class="service-desc">Smart home integration for enhanced convenience</div>
+                </div>
+                <div class="service-card">
+                  <div class="service-icon"><img src="./assets/img/icons/icon1.png" alt="" /></div>
+                  <div class="service-title">Conference System</div>
+                  <div class="service-desc">Professional audio solutions for meetings and events</div>
+                </div>
+                <div class="service-card">
+                  <div class="service-icon"><img src="./assets/img/icons/icon1.png" alt="" /></div>
+                  <div class="service-title">Smart Class System</div>
+                  <div class="service-desc">Interactive learning environments for modern education</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="solutions">
+        <div class="section-title">Our Solutions</div>
+        <div class="solutions-section">
+          <div class="section-watermark">
+            <div class="watermark-left">SOLUTIONS</div>
+            <div class="watermark-right">VISION</div>
+          </div>
+          <div class="section-content">
+            <div class="solutions-container">
+              <div class="solutions-sidebar">
+                <div class="solution-option active" data-solution="banking">
+                  <div class="solution-icon">🏦</div>
+                  <div class="solution-title">Banking & Finance</div>
+                </div>
+                <div class="solution-option" data-solution="parking">
+                  <div class="solution-icon">🚗</div>
+                  <div class="solution-title">Parking Solutions</div>
+                </div>
+                <div class="solution-option" data-solution="education">
+                  <div class="solution-icon">🎓</div>
+                  <div class="solution-title">Education</div>
+                </div>
+              </div>
+              <div class="solutions-content">
+                <div class="solution-panel active" id="banking">
+                  <h3>Banking & Finance Surveillance Solutions</h3>
+                  <div class="solution-features collapsed">
+                    <div class="feature-item">
+                      <h4>Strengthening Financial Facilities</h4>
+                      <p>TautSecure's Banking Surveillance Solution encompasses a suite of powerful and intelligent functionalities. These cutting-edge features are backed by advanced technology, enabling seamless integration of your financial facilities. Whether it's branch offices, service centers, or treasuries, TautSecure's centralized monitoring solution streamlines operations, making implementation, management, and integration a breeze.</p>
+                    </div>
+                    <div class="feature-item">
+                      <h4>Effective Surveillance of Bank Assets</h4>
+                      <p>With TautSecure, you can ensure comprehensive and effective surveillance of your bank assets. By leveraging state-of-the-art technology, our solution provides real-time monitoring and alerts, enabling proactive risk management. Through advanced video analytics and intelligent algorithms, potential security breaches can be identified promptly, allowing for swift response and mitigation.</p>
+                    </div>
+                    <div class="feature-item">
+                      <h4>Enhanced Security for Clients and Personnel</h4>
+                      <p>The safety of your clients and personnel is of utmost importance. TautSecure's surveillance solutions offer robust security measures to protect them. By implementing cutting-edge access control systems and biometric authentication, unauthorized access to restricted areas is mitigated. Our intelligent surveillance solution can accurately detect and alert for any suspicious activities, enabling proactive measures to ensure the utmost safety and security.</p>
+                    </div>
+                    <div class="feature-item">
+                      <h4>Securing ATM Areas with Unwavering Reliability</h4>
+                      <p>ATMs are vital touchpoints for customers, and their security is crucial. TautSecure's surveillance solutions provide unwavering reliability in securing ATM areas. With advanced video analytics and real-time monitoring, any unusual or suspicious activities are detected promptly. This enables proactive measures to safeguard the integrity of ATM transactions and protect customers from potential threats such as skimming or card cloning.</p>
+                    </div>
+                    <div class="feature-item">
+                      <h4>Improving Accountability, Efficiency, and Customer Satisfaction</h4>
+                      <p>Beyond enhancing security, TautSecure's surveillance solutions deliver a range of additional benefits that drive business success. By fostering accountability through comprehensive surveillance, businesses can mitigate internal fraud and maintain transparency. Moreover, the implementation of intelligent analytics helps identify process bottlenecks and optimize operations, leading to improved efficiency.</p>
+                    </div>
+                  </div>
+                  <div class="read-more-btn" data-target="banking">Read More</div>
+                </div>
+                <div class="solution-panel" id="parking">
+                  <h3>Smart Parking Solutions</h3>
+                  <div class="solution-features collapsed">
+                    <div class="feature-item">
+                      <h4>The Benefits of Smart Parking Solutions for Enhanced User Experience</h4>
+                      <p>In today's fast-paced world, finding an available parking space quickly is crucial, as it can save us valuable time. Additionally, outdated paper ticketing systems often lead to congestion, with drivers queuing to enter and exit parking lots. To address these challenges effectively, it is imperative for organizations such as retail companies, private businesses, and public authorities to consider implementing smart parking solutions.</p>
+                    </div>
+                    <div class="feature-item">
+                      <h4>Streamlined Parking Process with Intelligent Guidance</h4>
+                      <p>One of the key advantages of smart parking solutions is their ability to optimize the parking process. By leveraging intelligent parking guidance systems, parking businesses can ensure a smooth flow of vehicles at all times. These systems utilize real-time data and advanced algorithms to guide drivers to available parking spaces quickly and effortlessly.</p>
+                    </div>
+                    <div class="feature-item">
+                      <h4>Efficient Entrance and Exit Control</h4>
+                      <p>Traditional parking facilities often experience bottlenecks and congestion during peak hours, leading to delays and inconvenience for customers. However, with smart entrance/exit control mechanisms in place, these issues can be mitigated effectively. Automated barriers play a vital role in maintaining a steady flow of vehicles through parking lots, ensuring a hassle-free experience for customers.</p>
+                    </div>
+                    <div class="feature-item">
+                      <h4>Enhanced User Experience through Flexibility</h4>
+                      <p>To provide the utmost convenience to customers, parking businesses must prioritize flexibility. Smart parking solutions offer various features that cater to this need. For instance, advanced parking management systems allow users to reserve parking spaces in advance, guaranteeing their availability upon arrival.</p>
+                    </div>
+                    <div class="feature-item">
+                      <h4>Quick and Simple Parking Space Locating</h4>
+                      <p>Locating an available parking space within a crowded parking facility can be a time-consuming and frustrating task. Smart parking solutions address this issue by providing users with real-time information on parking availability. By integrating sensor technologies and data analytics, these systems can accurately determine the occupancy status of each parking spot.</p>
+                    </div>
+                    <div class="feature-item">
+                      <h4>Improving Overall Traffic Flow</h4>
+                      <p>By implementing smart parking solutions, organizations contribute to the improvement of overall traffic flow in urban areas. Efficient parking systems minimize the time spent searching for parking spaces, reducing the number of vehicles circling the streets. Consequently, this leads to decreased traffic congestion, improved air quality, and a more sustainable urban environment.</p>
+                    </div>
+                  </div>
+                  <div class="read-more-btn" data-target="parking">Read More</div>
+                </div>
+                <div class="solution-panel" id="education">
+                  <h3>Education Campus Security Solutions</h3>
+                  <div class="solution-features collapsed">
+                    <div class="feature-item">
+                      <h4>Enhancing Campus Safety and Security with Tautsecure's Innovative Solutions</h4>
+                      <p>As an educational institution, ensuring the safety and security of your campus is of utmost importance. With the increasing prevalence of internal and external threats, it is crucial to implement robust security measures. Tautsecure offers cutting-edge technology solutions that not only deter threats but also foster a positive and secure environment.</p>
+                    </div>
+                    <div class="feature-item">
+                      <h4>Securing Entrances, Lobbies, and Offices</h4>
+                      <p>One key area that requires heightened security is the entrances, lobbies, and offices of educational campuses. Tautsecure's advanced security solutions provide comprehensive coverage in these critical zones. By leveraging state-of-the-art technology and high-definition clarity, Tautsecure equips school systems with the tools necessary to monitor activities and assets effectively.</p>
+                    </div>
+                    <div class="feature-item">
+                      <h4>Safeguarding Hallways, Corridors, and Classrooms</h4>
+                      <p>The hallways, corridors, and classrooms are the lifelines of any educational institution. Tautsecure understands the significance of securing these spaces. By implementing their innovative security products, schools can significantly reduce incidents of theft, vandalism, and violence. Tautsecure's intelligent learning technology and analytics enable proactive response capabilities, ensuring district-wide situational awareness.</p>
+                    </div>
+                    <div class="feature-item">
+                      <h4>Ensuring Safety in Sporting Arenas/Stadiums</h4>
+                      <p>Sporting arenas and stadiums bring communities together, but they also require heightened security measures. Tautsecure's security solutions extend to these spaces, creating a safe environment for students, staff, and spectators. By deploying cutting-edge technology, such as surveillance cameras and access control systems, Tautsecure enables efficient monitoring and threat detection.</p>
+                    </div>
+                    <div class="feature-item">
+                      <h4>Protecting Parking Lots and School Buses</h4>
+                      <p>Parking lots and school buses are areas prone to security breaches. To combat this, Tautsecure offers innovative solutions tailored to these specific environments. By employing surveillance cameras and license plate recognition technology, Tautsecure enables efficient monitoring and tracking of vehicles. This not only deters potential threats but also aids in asset management and ensures the safety of students during transit.</p>
+                    </div>
+                    <div class="feature-item">
+                      <h4>Fortifying Libraries and Gyms</h4>
+                      <p>Libraries and gyms serve as hubs for learning and physical fitness. Tautsecure recognizes the need to secure these spaces effectively. By integrating their advanced security solutions, schools can maintain a safe and conducive environment for students and staff. With real-time monitoring and intelligent analytics, Tautsecure's technology empowers educational institutions to proactively address any potential risks or threats, fostering a secure atmosphere for all.</p>
+                    </div>
+                  </div>
+                  <div class="read-more-btn" data-target="education">Read More</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="projects">
+        <div class="section-title section-title-reviews">User Reviews</div>
+        <div class="testimonials-section">
+          <div class="section-watermark">
+            <div class="watermark-left">CUSTOMERS</div>
+            <div class="watermark-right">REVIEWS</div>
+          </div>
+          <div class="section-content">
+            <div class="google-reviews-header">
+              <div class="google-logo">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                </svg>
+                <span>Google</span>
+              </div>
+              <div class="rating-summary">
+                <div class="overall-rating">
+                  <span class="rating-number">4.8</span>
+                  <div class="stars">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                  </div>
+                  <span class="total-reviews">Based on 127 reviews</span>
+                </div>
+              </div>
+            </div>
+            <div class="testimonials" id="googleReviews">
+              <!-- Reviews will be loaded here dynamically -->
+            </div>
+            <div class="load-more-reviews">
+              <button id="loadMoreReviews" class="google-btn">
+                <svg viewBox="0 0 24 24" width="16" height="16">
+                  <path fill="currentColor" d="M7 10l5 5 5-5z" />
+                </svg>
+                Load more reviews
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="sponsors">
+        <div class="sponsor-title">
+          <span class="sponsor-accent">Brands</span>
+          <h2>Our Brands</h2>
+        </div>
+        <div class="sponsors-section">
+          <div class="section-watermark">
+            <div class="watermark-left">TAUT SECURE</div>
+            <div class="watermark-right">TAUT SECURE</div>
+          </div>
+          <div class="section-content">
+            <div class="brands-row" id="brandsContainer">
+              <!-- Brand images will be loaded dynamically -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="section-title">Get In Touch</div>
+        <div class="contact-section">
+          <div class="section-watermark">
+            <div class="watermark-left">CONTACT</div>
+            <div class="watermark-right">US</div>
+          </div>
+          <div class="section-content">
+            <div class="contact-container">
+              <!-- Contact Information -->
+              <div class="contact-info-section">
+                <h3>Let's Connect</h3>
+                <p>Ready to secure your space? Get in touch with our security experts today.</p>
+
+                <div class="contact-methods">
+                  <div class="contact-method">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-details">
+                      <h4>Our Locations</h4>
+                      <p>Bangalore | Mangalore | Kasaragod</p>
+                    </div>
+                  </div>
+
+                  <div class="contact-method">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-details">
+                      <h4>Call Us</h4>
+                      <a href="tel:+917337836586">+91 7337836586</a>
+                    </div>
+                  </div>
+
+                  <div class="contact-method">
+                    <div class="contact-icon">✉️</div>
+                    <div class="contact-details">
+                      <h4>Email Us</h4>
+                      <a href="mailto:info@tautsecure.com">info@tautsecure.com</a>
+                    </div>
+                  </div>
+
+                  <div class="contact-method">
+                    <div class="contact-icon">🕒</div>
+                    <div class="contact-details">
+                      <h4>Business Hours</h4>
+                      <p>Mon - Sat: 9:00 AM - 6:00 PM</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Contact Form with Chat Interface -->
+              <div class="contact-form-section">
+                <div class="form-container">
+                  <div class="chat-header">
+                    <div class="chat-status">
+                      <div class="status-dot"></div>
+                      <span>Live Support</span>
+                    </div>
+                    <div class="chat-close">×</div>
+                  </div>
+
+                  <div class="chat-messages">
+                    <div class="message user-message">
+                      <div class="message-avatar">👤</div>
+                      <div class="message-bubble">
+                        <p>Hello, I need help with security system installation.</p>
+                        <span class="message-time">Just now</span>
+                      </div>
+                    </div>
+
+                    <div class="message support-message">
+                      <div class="message-bubble">
+                        <p>Hi! I'll be glad to help you with your security needs. Let me know what type of system you're looking for.</p>
+                        <span class="message-time">Just now</span>
+                      </div>
+                      <div class="message-avatar">🛡️</div>
+                    </div>
+                  </div>
+
+                  <div class="chat-input-area">
+                    <form class="contact-form" autocomplete="off" onsubmit="event.preventDefault(); handleFormSubmit();">
+                      <div class="input-row">
+                        <div class="form-group">
+                          <div class="input-wrapper">
+                            <input type="text" id="name" name="name" placeholder="Your Name" required />
+                            <div class="input-icon">👤</div>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <div class="input-wrapper">
+                            <input type="email" id="email" name="email" placeholder="Email" required />
+                            <div class="input-icon">✉️</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="input-row">
+                        <div class="form-group">
+                          <div class="input-wrapper">
+                            <input type="tel" id="phone" name="phone" placeholder="Phone" />
+                            <div class="input-icon">📞</div>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <div class="input-wrapper">
+                            <select id="service" name="service" required>
+                              <option value="">Service Type</option>
+                              <option value="cctv">CCTV Systems</option>
+                              <option value="access-control">Access Control</option>
+                              <option value="alarm-systems">Alarm Systems</option>
+                              <option value="home-automation">Home Automation</option>
+                              <option value="consultation">Security Consultation</option>
+                            </select>
+                            <div class="input-icon">🔒</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <div class="input-wrapper">
+                          <textarea id="message" name="message" rows="3" placeholder="Tell us about your security requirements..." required></textarea>
+                          <div class="input-icon">💬</div>
+                        </div>
+                      </div>
+
+                      <button type="submit" class="submit-btn">
+                        <span class="btn-text">Send Message</span>
+                        <span class="btn-icon">📤</span>
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div>© 2023 Taut Secure, All Rights Reserved</div>
+      <div style="margin-top: 0.5rem; font-size: 0.95rem">Call: <a href="tel:+917337836586" style="color: var(--primary); text-decoration: none">+91 7337836586</a> | Email: <a href="mailto:info@tautsecure.com" style="color: var(--primary); text-decoration: none">info@tautsecure.com</a></div>
+      <div style="margin-top: 0.5rem; font-size: 0.95rem">Bangalore | Mangalore | Kasaragod</div>
+    </footer>
+    <script>
+      // Theme switcher
+      const themeSwitch = document.getElementById("themeSwitch");
+      themeSwitch.addEventListener("click", () => {
+        const currentTheme = document.body.getAttribute("data-theme");
+        if (currentTheme === "dark") {
+          document.body.removeAttribute("data-theme");
+          localStorage.setItem("tautsecure-theme", "light");
+        } else {
+          document.body.setAttribute("data-theme", "dark");
+          localStorage.setItem("tautsecure-theme", "dark");
+        }
+      });
+      // Load theme from localStorage
+      (function () {
+        const savedTheme = localStorage.getItem("tautsecure-theme");
+        if (savedTheme === "dark") {
+          document.body.setAttribute("data-theme", "dark");
+        }
+      })();
+
+      // Service cards active state management and scrolling
+      let isScrolling = false;
+      let currentIndex1 = 0;
+      let autoScrollInterval1;
+
+      const servicesRow1 = document.querySelector(".services-row-1");
+      const serviceCards1 = document.querySelectorAll(".services-row-1 .service-card");
+
+      const cardWidth = 350 + 32; // card width + gap
+
+      function updateActiveServiceCards() {
+        const serviceCards = document.querySelectorAll(".service-card");
+        const viewportCenter = window.innerWidth / 2;
+
+        serviceCards.forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          const cardCenter = rect.left + rect.width / 2;
+          const distanceFromCenter = Math.abs(cardCenter - viewportCenter);
+
+          // Remove active class from all cards
+          card.classList.remove("active");
+
+          // Add active class to cards near the center
+          if (distanceFromCenter < 200) {
+            card.classList.add("active");
+          }
+        });
+      }
+
+      function scrollToCard(row, index, direction = "right") {
+        if (isScrolling) return;
+
+        isScrolling = true;
+        const translateX = -(index * cardWidth);
+
+        if (direction === "right") {
+          row.style.transform = `translateX(${translateX}px)`;
+        } else {
+          row.style.transform = `translateX(${translateX}px)`;
+        }
+
+        setTimeout(() => {
+          isScrolling = false;
+        }, 800);
+
+        updateActiveServiceCards();
+      }
+
+      function startAutoScroll() {
+        // Auto scroll row 1 (right direction)
+        autoScrollInterval1 = setInterval(() => {
+          if (!isScrolling) {
+            currentIndex1 = (currentIndex1 + 1) % (serviceCards1.length / 2);
+            scrollToCard(servicesRow1, currentIndex1, "right");
+          }
+        }, 2000); // 2 second delay
+      }
+
+      function stopAutoScroll() {
+        clearInterval(autoScrollInterval1);
+      }
+
+      // Manual scrolling with mouse drag
+      let isDragging = false;
+      let startX = 0;
+      let scrollLeft = 0;
+
+      function handleMouseDown(e, row) {
+        isDragging = true;
+        startX = e.pageX - row.offsetLeft;
+        scrollLeft = parseInt(row.style.transform.replace("translateX(", "").replace("px)", "") || 0);
+        row.style.cursor = "grabbing";
+        stopAutoScroll();
+      }
+
+      function handleMouseMove(e, row) {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX - row.offsetLeft;
+        const walk = (x - startX) * 2;
+        row.style.transform = `translateX(${scrollLeft + walk}px)`;
+      }
+
+      function handleMouseUp(row) {
+        isDragging = false;
+        row.style.cursor = "grab";
+        startAutoScroll();
+      }
+
+      // Add event listeners for manual scrolling
+      if (servicesRow1) {
+        servicesRow1.addEventListener("mousedown", (e) => handleMouseDown(e, servicesRow1));
+        servicesRow1.addEventListener("mousemove", (e) => handleMouseMove(e, servicesRow1));
+        servicesRow1.addEventListener("mouseup", () => handleMouseUp(servicesRow1));
+        servicesRow1.addEventListener("mouseleave", () => handleMouseUp(servicesRow1));
+      }
+
+      // Touch events for mobile
+      function handleTouchStart(e, row) {
+        const touch = e.touches[0];
+        handleMouseDown({ pageX: touch.pageX }, row);
+      }
+
+      function handleTouchMove(e, row) {
+        const touch = e.touches[0];
+        handleMouseMove({ pageX: touch.pageX, preventDefault: () => {} }, row);
+      }
+
+      function handleTouchEnd(row) {
+        handleMouseUp(row);
+      }
+
+      if (servicesRow1) {
+        servicesRow1.addEventListener("touchstart", (e) => handleTouchStart(e, servicesRow1));
+        servicesRow1.addEventListener("touchmove", (e) => handleTouchMove(e, servicesRow1));
+        servicesRow1.addEventListener("touchend", () => handleTouchEnd(servicesRow1));
+      }
+
+      // Update active cards on scroll and resize
+      window.addEventListener("scroll", updateActiveServiceCards);
+      window.addEventListener("resize", updateActiveServiceCards);
+
+      // Start auto-scrolling after initial load
+      setTimeout(() => {
+        updateActiveServiceCards();
+        startAutoScroll();
+      }, 1000);
+
+      // Sample reviews data
+      const sampleReviews = [
+        {
+          author_name: "Bilal Ahmed",
+          rating: 5,
+          relative_time_description: "2 months ago",
+          text: "Taut Secure exceeded my expectations with their services. The installation was professional and the system works perfectly. Highly satisfied and I highly recommend their services!",
+        },
+        {
+          author_name: "Fahad Muhammed",
+          rating: 5,
+          relative_time_description: "3 months ago",
+          text: "The service was outstanding, the products appeared to be well-made, and the installation was handled by a competent and skilled expert. Very professional team.",
+        },
+        {
+          author_name: "Fairoz",
+          rating: 5,
+          relative_time_description: "1 month ago",
+          text: "Great feeling to have made the right choice selecting Taut Secure Security Professionals for security system activation. The team was knowledgeable and efficient.",
+        },
+        {
+          author_name: "Ahmed Hassan",
+          rating: 5,
+          relative_time_description: "4 months ago",
+          text: "I couldn't be happier with the level of professionalism displayed by Taut Secure. Their expertise and attention to detail made me feel confident in my choice. Highly recommend their services!",
+        },
+        {
+          author_name: "Sara Malik",
+          rating: 5,
+          relative_time_description: "2 weeks ago",
+          text: "As a customer of Taut Secure, I can confidently say that their commitment to delivering top-notch security solutions is unparalleled. They exceeded my expectations in every way.",
+        },
+        {
+          author_name: "Mohammed Ali",
+          rating: 5,
+          relative_time_description: "1 week ago",
+          text: "Excellent service from start to finish. The team was punctual, professional, and the installation was completed efficiently. The security system is working perfectly.",
+        },
+      ];
+
+      function createReviewCard(review) {
+        const stars = "★".repeat(review.rating) + "☆".repeat(5 - review.rating);
+
+        return `
+           <div class="testimonial-card">
+             <div class="review-header">
+               <div class="reviewer-avatar">
+                 <img src="./assets/img/reviews/default.png" alt="${review.author_name}" style="width: 100%; height: 100%; object-fit: cover;">
+               </div>
+               <div class="reviewer-info">
+                 <div class="reviewer-name">${review.author_name}</div>
+                 <div class="review-date">${review.relative_time_description}</div>
+               </div>
+             </div>
+             <div class="review-rating">
+               ${stars
+                 .split("")
+                 .map((star) => `<span class="review-star">${star}</span>`)
+                 .join("")}
+             </div>
+             <div class="testimonial-quote">${review.text}</div>
+
+           </div>
+         `;
+      }
+
+      function loadReviews() {
+        const reviewsContainer = document.getElementById("googleReviews");
+
+        sampleReviews.forEach((review) => {
+          reviewsContainer.innerHTML += createReviewCard(review);
+        });
+      }
+
+      // Load reviews when page loads
+      document.addEventListener("DOMContentLoaded", () => {
+        loadReviews();
+        loadBrandImages();
+      });
+
+      // Contact form submission handler
+      function handleFormSubmit() {
+        const form = document.querySelector(".contact-form");
+        const submitBtn = form.querySelector(".submit-btn");
+        const btnText = submitBtn.querySelector(".btn-text");
+        const btnIcon = submitBtn.querySelector(".btn-icon");
+
+        // Get form data
+        const formData = new FormData(form);
+        const name = formData.get("name");
+        const email = formData.get("email");
+        const phone = formData.get("phone");
+        const service = formData.get("service");
+        const message = formData.get("message");
+
+        // Show loading state
+        btnText.textContent = "Sending...";
+        btnIcon.textContent = "⏳";
+        submitBtn.disabled = true;
+
+        // Simulate form submission (replace with actual form handling)
+        setTimeout(() => {
+          // Show success message
+          btnText.textContent = "Message Sent!";
+          btnIcon.textContent = "✓";
+          submitBtn.style.background = "linear-gradient(135deg, #10B981, #059669)";
+
+          // Reset form
+          form.reset();
+
+          // Reset button after 3 seconds
+          setTimeout(() => {
+            btnText.textContent = "Send Message";
+            btnIcon.textContent = "→";
+            submitBtn.style.background = "linear-gradient(135deg, var(--primary), #ff6b6b)";
+            submitBtn.disabled = false;
+          }, 3000);
+
+          // Show success notification
+          showNotification("Thank you for contacting Taut Secure! We'll get back to you within 24 hours.", "success");
+        }, 2000);
+      }
+
+      // Notification function
+      function showNotification(message, type = "info") {
+        const notification = document.createElement("div");
+        notification.className = `notification notification-${type}`;
+        notification.innerHTML = `
+          <div class="notification-content">
+            <span class="notification-icon">${type === "success" ? "✓" : "ℹ"}</span>
+            <span class="notification-message">${message}</span>
+          </div>
+        `;
+
+        // Add notification styles
+        notification.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: ${type === "success" ? "linear-gradient(135deg, #10B981, #059669)" : "linear-gradient(135deg, var(--primary), #ff6b6b)"};
+          color: white;
+          padding: 1rem 1.5rem;
+          border-radius: 12px;
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+          z-index: 1000;
+          transform: translateX(100%);
+          transition: transform 0.3s ease;
+          max-width: 400px;
+        `;
+
+        document.body.appendChild(notification);
+
+        // Animate in
+        setTimeout(() => {
+          notification.style.transform = "translateX(0)";
+        }, 100);
+
+        // Remove after 5 seconds
+        setTimeout(() => {
+          notification.style.transform = "translateX(100%)";
+          setTimeout(() => {
+            document.body.removeChild(notification);
+          }, 300);
+        }, 5000);
+      }
+
+      // Function to load brand images from brands folder
+      function loadBrandImages() {
+        const brandsContainer = document.getElementById("brandsContainer");
+        if (!brandsContainer) return;
+
+        // List of brand names based on actual files in brands folder
+        const brandNames = ["prama", "digifort", "pelco", "alhua", "cisco", "milestone", "axis", "uniview", "toa", "bose", "hikvision"];
+
+        // Supported image formats
+        const imageFormats = ["png"];
+
+        // Clear existing content
+        brandsContainer.innerHTML = "";
+
+        brandNames.forEach((brandName) => {
+          // Try to load image with different formats
+          let imageLoaded = false;
+
+          imageFormats.forEach((format) => {
+            if (!imageLoaded) {
+              const img = new Image();
+              img.src = `./assets/img/brands/${brandName}.${format}`;
+              img.alt = brandName.charAt(0).toUpperCase() + brandName.slice(1);
+              img.className = "brand-logo";
+
+              img.onload = function () {
+                if (!imageLoaded) {
+                  imageLoaded = true;
+                  brandsContainer.appendChild(img);
+                  console.log(`Loaded brand image: ${brandName}.${format}`);
+                }
+              };
+
+              img.onerror = function () {
+                // If this format fails, try the next one
+                if (format === imageFormats[imageFormats.length - 1]) {
+                  // If all formats fail, use default image
+                  const defaultImg = new Image();
+                  defaultImg.src = "./assets/img/brands/default.png";
+                  defaultImg.alt = brandName.charAt(0).toUpperCase() + brandName.slice(1);
+                  defaultImg.className = "brand-logo";
+                  defaultImg.onload = function () {
+                    brandsContainer.appendChild(defaultImg);
+                    console.log(`Using default image for: ${brandName}`);
+                  };
+                }
+              };
+            }
+          });
+        });
+      }
+
+      // Load more reviews functionality
+      document.getElementById("loadMoreReviews")?.addEventListener("click", () => {
+        // Add more sample reviews
+        const additionalReviews = [
+          {
+            author_name: "Fatima Khan",
+            rating: 5,
+            relative_time_description: "3 days ago",
+            text: "Outstanding service! The team was very professional and the installation was quick and clean. The security system is working perfectly.",
+          },
+          {
+            author_name: "Omar Hassan",
+            rating: 5,
+            relative_time_description: "1 week ago",
+            text: "Excellent experience with Taut Secure. The staff was knowledgeable and the system installation was smooth. Highly recommended!",
+          },
+        ];
+
+        const reviewsContainer = document.getElementById("googleReviews");
+        additionalReviews.forEach((review) => {
+          reviewsContainer.innerHTML += createReviewCard(review);
+        });
+
+        // Hide load more button after loading additional reviews
+        document.getElementById("loadMoreReviews").style.display = "none";
+      });
+
+      // Solutions Section Functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        const solutionOptions = document.querySelectorAll(".solution-option");
+        const solutionPanels = document.querySelectorAll(".solution-panel");
+        const readMoreBtns = document.querySelectorAll(".read-more-btn");
+
+        solutionOptions.forEach((option) => {
+          option.addEventListener("click", function () {
+            const targetSolution = this.getAttribute("data-solution");
+
+            // Remove active class from all options and panels
+            solutionOptions.forEach((opt) => opt.classList.remove("active"));
+            solutionPanels.forEach((panel) => panel.classList.remove("active"));
+
+            // Add active class to clicked option and corresponding panel
+            this.classList.add("active");
+            document.getElementById(targetSolution).classList.add("active");
+
+            // Reset all read more buttons and content to collapsed state
+            readMoreBtns.forEach((btn) => {
+              btn.textContent = "Read More";
+              btn.classList.remove("expanded");
+            });
+            document.querySelectorAll(".solution-features").forEach((features) => {
+              features.classList.remove("expanded");
+              features.classList.add("collapsed");
+            });
+          });
+        });
+
+        // Read More functionality
+        readMoreBtns.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const targetSolution = this.getAttribute("data-target");
+            const features = document.querySelector(`#${targetSolution} .solution-features`);
+            const isExpanded = features.classList.contains("expanded");
+
+            if (isExpanded) {
+              // Collapse
+              features.classList.remove("expanded");
+              features.classList.add("collapsed");
+              this.textContent = "Read More";
+              this.classList.remove("expanded");
+            } else {
+              // Expand
+              features.classList.remove("collapsed");
+              features.classList.add("expanded");
+              this.textContent = "Read Less";
+              this.classList.add("expanded");
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
