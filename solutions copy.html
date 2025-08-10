@@ -1,676 +1,678 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Solutions - Taut Secure</title>
+    <link rel="icon" type="image/x-icon" href="./assets/img/logo.ico" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
     <style>
-        :root {
-            --primary: #d90429;
-            --background: #ffffff;
-            --foreground: #111;
-            --card-bg: #f8f9fa;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            --nav-bg: rgba(255, 255, 255, 0.95);
-            --nav-fg: #111;
-            --accent: linear-gradient(90deg, #d90429, #ff6b6b);
-        }
+      :root {
+        --primary: #d90429;
+        --background: #ffffff;
+        --foreground: #111;
+        --card-bg: #f8f9fa;
+        --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        --nav-bg: rgba(255, 255, 255, 0.95);
+        --nav-fg: #111;
+        --accent: linear-gradient(90deg, #d90429, #ff6b6b);
+      }
 
-        [data-theme="dark"] {
-            --background: #0a0a0a;
-            --foreground: #fff;
-            --card-bg: #1a1a1a;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            --nav-bg: rgba(26, 26, 26, 0.95);
-            --nav-fg: #fff;
-        }
+      [data-theme="dark"] {
+        --background: #0a0a0a;
+        --foreground: #fff;
+        --card-bg: #1a1a1a;
+        --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        --nav-bg: rgba(26, 26, 26, 0.95);
+        --nav-fg: #fff;
+      }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--background);
-            color: var(--foreground);
-            line-height: 1.6;
-        }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: var(--background);
+        color: var(--foreground);
+        line-height: 1.6;
+      }
 
-        /* Header Styles */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: var(--nav-bg);
-            backdrop-filter: blur(20px);
-            box-shadow: var(--shadow);
-            z-index: 1000;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+      /* Header Styles */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: var(--nav-bg);
+        backdrop-filter: blur(20px);
+        box-shadow: var(--shadow);
+        z-index: 1000;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-        }
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary);
+        text-decoration: none;
+      }
 
-        nav {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
+      nav {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+      }
 
-        nav a {
-            text-decoration: none;
-            color: var(--nav-fg);
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
+      nav a {
+        text-decoration: none;
+        color: var(--nav-fg);
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
 
-        nav a:hover {
-            color: var(--primary);
-        }
+      nav a:hover {
+        color: var(--primary);
+      }
 
-        .theme-switch {
-            position: relative;
-            width: 60px;
-            height: 30px;
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 4px;
-            backdrop-filter: blur(10px);
-            overflow: hidden;
-        }
+      .theme-switch {
+        position: relative;
+        width: 60px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 4px;
+        backdrop-filter: blur(10px);
+        overflow: hidden;
+      }
 
-        .theme-switch::before {
-            content: "☀️";
-            font-size: 14px;
-            transition: all 0.3s ease;
-            opacity: 1;
-            z-index: 1;
-        }
+      .theme-switch::before {
+        content: "☀️";
+        font-size: 14px;
+        transition: all 0.3s ease;
+        opacity: 1;
+        z-index: 1;
+      }
 
-        .theme-switch::after {
-            content: "🌙";
-            font-size: 14px;
-            transition: all 0.3s ease;
-            opacity: 0.5;
-            z-index: 1;
-        }
+      .theme-switch::after {
+        content: "🌙";
+        font-size: 14px;
+        transition: all 0.3s ease;
+        opacity: 0.5;
+        z-index: 1;
+      }
 
-        .theme-switch .toggle-slider {
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 22px;
-            height: 22px;
-            background: linear-gradient(135deg, #ffd700, #ffed4e);
-            border-radius: 50%;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            z-index: 2;
-        }
+      .theme-switch .toggle-slider {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 22px;
+        height: 22px;
+        background: linear-gradient(135deg, #ffd700, #ffed4e);
+        border-radius: 50%;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        z-index: 2;
+      }
 
-        body[data-theme="dark"] .theme-switch .toggle-slider {
-            transform: translateX(30px);
-            background: linear-gradient(135deg, #1a1a1a, #333);
-        }
+      body[data-theme="dark"] .theme-switch .toggle-slider {
+        transform: translateX(30px);
+        background: linear-gradient(135deg, #1a1a1a, #333);
+      }
 
-        /* Main Content */
-        main {
-            margin-top: 80px;
-            min-height: calc(100vh - 80px);
-        }
+      /* Main Content */
+      main {
+        margin-top: 80px;
+        min-height: calc(100vh - 80px);
+      }
 
-        /* Solutions Page Layout */
+      /* Solutions Page Layout */
+      .solutions-container {
+        display: flex;
+        min-height: calc(100vh - 80px);
+      }
+
+      /* Left Side - Visitor Profile */
+      .visitor-profile {
+        flex: 0 0 400px;
+        background: linear-gradient(135deg, #1a1a2e, #16213e);
+        padding: 3rem 2rem;
+        color: #fff;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .visitor-profile::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("./assets/img/background.png") center/cover;
+        opacity: 0.1;
+        z-index: 0;
+      }
+
+      .profile-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .profile-title {
+        margin-bottom: 3rem;
+      }
+
+      .profile-accent {
+        color: var(--primary);
+        font-size: 1rem;
+        font-weight: 500;
+        text-decoration: underline;
+        text-decoration-color: var(--primary);
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .profile-title h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #fff;
+        margin: 0;
+        letter-spacing: 1px;
+      }
+
+      .visitor-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .visitor-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.5rem 0;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+      }
+
+      .visitor-item:hover {
+        transform: translateX(5px);
+        color: var(--primary);
+      }
+
+      .visitor-bullet {
+        width: 8px;
+        height: 8px;
+        background: var(--primary);
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      /* Right Side - Solutions Content */
+      .solutions-content {
+        flex: 1;
+        background: linear-gradient(135deg, #0f0f23, #1a1a2e);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .solutions-content::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("./assets/img/background.png") center/cover;
+        opacity: 0.05;
+        z-index: 0;
+      }
+
+      .content-overlay {
+        position: relative;
+        z-index: 1;
+        padding: 3rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .solution-header {
+        margin-bottom: 2rem;
+      }
+
+      .solution-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 1rem;
+      }
+
+      .solution-subtitle {
+        font-size: 1.1rem;
+        color: var(--primary);
+        font-weight: 600;
+        margin-bottom: 2rem;
+      }
+
+      .solution-text {
+        color: #e0e0e0;
+        line-height: 1.8;
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .solution-text h4 {
+        color: #fff;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        margin-top: 2rem;
+      }
+
+      .solution-text h5 {
+        color: var(--primary);
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        margin-top: 1.5rem;
+      }
+
+      .solution-text h6 {
+        color: #fff;
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+        margin-top: 1.5rem;
+      }
+
+      /* Cyber Security UI Elements */
+      .cyber-ui {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        z-index: 2;
+      }
+
+      .cyber-panel {
+        background: rgba(0, 150, 255, 0.1);
+        border: 1px solid rgba(0, 150, 255, 0.3);
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        backdrop-filter: blur(10px);
+      }
+
+      .cyber-title {
+        color: #00aaff;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .login-form {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 1.5rem;
+        backdrop-filter: blur(10px);
+      }
+
+      .login-form input {
+        width: 100%;
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        color: #fff;
+        font-size: 0.8rem;
+      }
+
+      .login-form input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      .login-btn {
+        background: var(--primary);
+        color: #fff;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        margin-top: 0.5rem;
+      }
+
+      .padlock-icon {
+        position: absolute;
+        bottom: 2rem;
+        right: 2rem;
+        font-size: 4rem;
+        color: rgba(255, 255, 255, 0.3);
+        z-index: 2;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 1200px) {
         .solutions-container {
-            display: flex;
-            min-height: calc(100vh - 80px);
+          flex-direction: column;
         }
 
-        /* Left Side - Visitor Profile */
         .visitor-profile {
-            flex: 0 0 400px;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            padding: 3rem 2rem;
-            color: #fff;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .visitor-profile::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('./assets/img/background.png') center/cover;
-            opacity: 0.1;
-            z-index: 0;
-        }
-
-        .profile-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .profile-title {
-            margin-bottom: 3rem;
-        }
-
-        .profile-accent {
-            color: var(--primary);
-            font-size: 1rem;
-            font-weight: 500;
-            text-decoration: underline;
-            text-decoration-color: var(--primary);
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .profile-title h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #fff;
-            margin: 0;
-            letter-spacing: 1px;
+          flex: none;
+          height: auto;
         }
 
         .visitor-list {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+          grid-template-columns: 1fr;
         }
+      }
 
-        .visitor-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.5rem 0;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .visitor-item:hover {
-            transform: translateX(5px);
-            color: var(--primary);
-        }
-
-        .visitor-bullet {
-            width: 8px;
-            height: 8px;
-            background: var(--primary);
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-
-        /* Right Side - Solutions Content */
-        .solutions-content {
-            flex: 1;
-            background: linear-gradient(135deg, #0f0f23, #1a1a2e);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .solutions-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('./assets/img/background.png') center/cover;
-            opacity: 0.05;
-            z-index: 0;
-        }
-
+      @media (max-width: 768px) {
         .content-overlay {
-            position: relative;
-            z-index: 1;
-            padding: 3rem;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
+          padding: 2rem 1rem;
         }
 
-        .solution-header {
-            margin-bottom: 2rem;
-        }
-
-        .solution-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 1rem;
-        }
-
-        .solution-subtitle {
-            font-size: 1.1rem;
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 2rem;
-        }
-
-        .solution-text {
-            color: #e0e0e0;
-            line-height: 1.8;
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .solution-text h4 {
-            color: #fff;
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            margin-top: 2rem;
-        }
-
-        .solution-text h5 {
-            color: var(--primary);
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .solution-text h6 {
-            color: #fff;
-            font-size: 1rem;
-            margin-bottom: 0.75rem;
-            margin-top: 1.5rem;
-        }
-
-        /* Cyber Security UI Elements */
         .cyber-ui {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            z-index: 2;
-        }
-
-        .cyber-panel {
-            background: rgba(0, 150, 255, 0.1);
-            border: 1px solid rgba(0, 150, 255, 0.3);
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            backdrop-filter: blur(10px);
-        }
-
-        .cyber-title {
-            color: #00aaff;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .login-form {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 1.5rem;
-            backdrop-filter: blur(10px);
-        }
-
-        .login-form input {
-            width: 100%;
-            padding: 0.5rem;
-            margin-bottom: 0.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
-            color: #fff;
-            font-size: 0.8rem;
-        }
-
-        .login-form input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .login-btn {
-            background: var(--primary);
-            color: #fff;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            margin-top: 0.5rem;
+          position: relative;
+          top: auto;
+          right: auto;
+          margin-bottom: 2rem;
         }
 
         .padlock-icon {
-            position: absolute;
-            bottom: 2rem;
-            right: 2rem;
-            font-size: 4rem;
-            color: rgba(255, 255, 255, 0.3);
-            z-index: 2;
+          display: none;
         }
+      }
 
-        /* Responsive Design */
-        @media (max-width: 1200px) {
-            .solutions-container {
-                flex-direction: column;
-            }
-            
-            .visitor-profile {
-                flex: none;
-                height: auto;
-            }
-            
-            .visitor-list {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .content-overlay {
-                padding: 2rem 1rem;
-            }
-            
-            .cyber-ui {
-                position: relative;
-                top: auto;
-                right: auto;
-                margin-bottom: 2rem;
-            }
-            
-            .padlock-icon {
-                display: none;
-            }
-        }
-
-        /* Footer */
-        footer {
-            background: var(--card-bg);
-            padding: 2rem;
-            text-align: center;
-            color: var(--foreground);
-            box-shadow: var(--shadow);
-        }
+      /* Footer */
+      footer {
+        background: var(--card-bg);
+        padding: 2rem;
+        text-align: center;
+        color: var(--foreground);
+        box-shadow: var(--shadow);
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <a href="index.html" class="logo">Taut Secure</a>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="index.html#about">About</a>
-            <a href="index.html#services">Services</a>
-            <a href="solutions.html" style="color: var(--primary);">Solutions</a>
-            <a href="index.html#contact">Contact</a>
-            <button class="theme-switch" id="themeSwitch" title="Switch theme">
-                <div class="toggle-slider"></div>
-            </button>
-        </nav>
+      <a href="index.html" class="logo">Taut Secure</a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#services">Services</a>
+        <a href="solutions.html" style="color: var(--primary)">Solutions</a>
+        <a href="index.html#contact">Contact</a>
+        <button class="theme-switch" id="themeSwitch" title="Switch theme">
+          <div class="toggle-slider"></div>
+        </button>
+      </nav>
     </header>
 
     <main>
-        <div class="solutions-container">
-            <!-- Left Side - Visitor Profile -->
-            <div class="visitor-profile">
-                <div class="profile-content">
-                    <div class="profile-title">
-                        <span class="profile-accent">Visitors</span>
-                        <h1>Visitor Profile</h1>
-                    </div>
-                    
-                    <div class="visitor-list">
-                        <div class="visitor-item">
-                            <div class="visitor-bullet"></div>
-                            <span>Municipal Authorities</span>
-                        </div>
-                        <div class="visitor-item">
-                            <div class="visitor-bullet"></div>
-                            <span>Schools, Colleges & other educational institutions</span>
-                        </div>
-                        <div class="visitor-item">
-                            <div class="visitor-bullet"></div>
-                            <span>Architects & Building Developers</span>
-                        </div>
-                        <div class="visitor-item">
-                            <div class="visitor-bullet"></div>
-                            <span>Hospitals and Health Centers</span>
-                        </div>
-                        <div class="visitor-item">
-                            <div class="visitor-bullet"></div>
-                            <span>Hotel, Real Estate & Retail Management</span>
-                        </div>
-                        <div class="visitor-item">
-                            <div class="visitor-bullet"></div>
-                            <span>Banks and financial institutions</span>
-                        </div>
-                        <div class="visitor-item">
-                            <div class="visitor-bullet"></div>
-                            <span>Police & Law Enforcement Agencies</span>
-                        </div>
-                        <div class="visitor-item">
-                            <div class="visitor-bullet"></div>
-                            <span>Safety & Security Consultants & Manager</span>
-                        </div>
-                        <div class="visitor-item">
-                            <div class="visitor-bullet"></div>
-                            <span>Hydro Power Projects</span>
-                        </div>
-                        <div class="visitor-item">
-                            <div class="visitor-bullet"></div>
-                            <span>Import & Export Agencies</span>
-                        </div>
-                        <div class="visitor-item">
-                            <div class="visitor-bullet"></div>
-                            <span>Oil & Gas Agencies</span>
-                        </div>
-                        <div class="visitor-item">
-                            <div class="visitor-bullet"></div>
-                            <span>Highway Authorities</span>
-                        </div>
-                        <div class="visitor-item">
-                            <div class="visitor-bullet"></div>
-                            <span>Trade Associations</span>
-                        </div>
-                        <div class="visitor-item">
-                            <div class="visitor-bullet"></div>
-                            <span>Government Ministries</span>
-                        </div>
-                        <div class="visitor-item">
-                            <div class="visitor-bullet"></div>
-                            <span>Public Sector Undertakings</span>
-                        </div>
-                        <div class="visitor-item">
-                            <div class="visitor-bullet"></div>
-                            <span>Traffic Consultants & Firms</span>
-                        </div>
-                        <div class="visitor-item">
-                            <div class="visitor-bullet"></div>
-                            <span>Resident Welfare Association</span>
-                        </div>
-                        <div class="visitor-item">
-                            <div class="visitor-bullet"></div>
-                            <span>Systems & Safety Products Manufacturers/ Suppliers/ Installers & many more..</span>
-                        </div>
-                    </div>
-                </div>
+      <div class="solutions-container">
+        <!-- Left Side - Visitor Profile -->
+        <div class="visitor-profile">
+          <div class="profile-content">
+            <div class="profile-title">
+              <span class="profile-accent">Visitors</span>
+              <h1>Visitor Profile</h1>
             </div>
 
-            <!-- Right Side - Solutions Content -->
-            <div class="solutions-content">
-                <div class="content-overlay">
-                    <div class="solution-header">
-                        <h1 class="solution-title">Solutions</h1>
-                        <p class="solution-subtitle">Comprehensive security solutions for every sector</p>
-                    </div>
-
-                    <div class="solution-text" id="banking-content">
-                        <h4>Banking & Finance</h4>
-                        <h5>Strengthening Financial Facilities with TautSecure's Banking Surveillance Solution</h5>
-                        <p>TautSecure's Banking Surveillance Solution encompasses a suite of powerful and intelligent functionalities. These cutting-edge features are backed by advanced technology, enabling seamless integration of your financial facilities. Whether it's branch offices, service centers, or treasuries, TautSecure's centralized monitoring solution streamlines operations, making implementation, management, and integration a breeze.</p>
-                        
-                        <h5>Effective Surveillance of Bank Assets</h5>
-                        <p>With TautSecure, you can ensure comprehensive and effective surveillance of your bank assets. By leveraging state-of-the-art technology, our solution provides real-time monitoring and alerts, enabling proactive risk management. Through advanced video analytics and intelligent algorithms, potential security breaches can be identified promptly, allowing for swift response and mitigation.</p>
-                        
-                        <h5>Enhanced Security for Clients and Personnel</h5>
-                        <p>The safety of your clients and personnel is of utmost importance. TautSecure's surveillance solutions offer robust security measures to protect them. By implementing cutting-edge access control systems and biometric authentication, unauthorized access to restricted areas is mitigated. Our intelligent surveillance solution can accurately detect and alert for any suspicious activities, enabling proactive measures to ensure the utmost safety and security.</p>
-                        
-                        <h5>Securing ATM Areas with Unwavering Reliability</h5>
-                        <p>ATMs are vital touchpoints for customers, and their security is crucial. TautSecure's surveillance solutions provide unwavering reliability in securing ATM areas. With advanced video analytics and real-time monitoring, any unusual or suspicious activities are detected promptly. This enables proactive measures to safeguard the integrity of ATM transactions and protect customers from potential threats such as skimming or card cloning.</p>
-                        
-                        <h5>Improving Accountability, Efficiency, and Customer Satisfaction</h5>
-                        <p>Beyond enhancing security, TautSecure's surveillance solutions deliver a range of additional benefits that drive business success. By fostering accountability through comprehensive surveillance, businesses can mitigate internal fraud and maintain transparency. Moreover, the implementation of intelligent analytics helps identify process bottlenecks and optimize operations, leading to improved efficiency.</p>
-                        <p>Additionally, TautSecure's surveillance solutions play a vital role in enhancing customer satisfaction. By providing a secure environment, customers feel confident in conducting their financial transactions. This fosters trust and loyalty, ultimately strengthening the bond between businesses and their clientele.</p>
-                    </div>
-
-                    <div class="solution-text" id="parking-content" style="display: none;">
-                        <h4>Parking Solutions</h4>
-                        <h5>The Benefits of Smart Parking Solutions for Enhanced User Experience</h5>
-                        <p>In today's fast-paced world, finding an available parking space quickly is crucial, as it can save us valuable time. Additionally, outdated paper ticketing systems often lead to congestion, with drivers queuing to enter and exit parking lots. To address these challenges effectively, it is imperative for organizations such as retail companies, private businesses, and public authorities to consider implementing smart parking solutions. These innovative technologies, including intelligent parking guidance and smart entrance/exit control systems, not only facilitate efficient and seamless parking experiences but also enhance user satisfaction.</p>
-                        
-                        <h5>Streamlined Parking Process with Intelligent Guidance</h5>
-                        <p>One of the key advantages of smart parking solutions is their ability to optimize the parking process. By leveraging intelligent parking guidance systems, parking businesses can ensure a smooth flow of vehicles at all times. These systems utilize real-time data and advanced algorithms to guide drivers to available parking spaces quickly and effortlessly. By eliminating the need for drivers to search aimlessly for parking, these solutions greatly reduce the time and frustration associated with finding a suitable spot.</p>
-                        
-                        <h5>Efficient Entrance and Exit Control</h5>
-                        <p>Traditional parking facilities often experience bottlenecks and congestion during peak hours, leading to delays and inconvenience for customers. However, with smart entrance/exit control mechanisms in place, these issues can be mitigated effectively. Automated barriers play a vital role in maintaining a steady flow of vehicles through parking lots, ensuring a hassle-free experience for customers. By replacing manual ticketing systems with electronic payment methods and license plate recognition technology, smart parking solutions eliminate the need for physical tickets and reduce waiting times significantly.</p>
-                        
-                        <h5>Enhanced User Experience through Flexibility</h5>
-                        <p>To provide the utmost convenience to customers, parking businesses must prioritize flexibility. Smart parking solutions offer various features that cater to this need. For instance, advanced parking management systems allow users to reserve parking spaces in advance, guaranteeing their availability upon arrival. This feature is particularly beneficial in high-demand areas or during special events when parking availability is limited. By offering such flexibility, parking businesses can enhance customer satisfaction and loyalty.</p>
-                        
-                        <h5>Quick and Simple Parking Space Locating</h5>
-                        <p>Locating an available parking space within a crowded parking facility can be a time-consuming and frustrating task. Smart parking solutions address this issue by providing users with real-time information on parking availability. By integrating sensor technologies and data analytics, these systems can accurately determine the occupancy status of each parking spot. Users can conveniently access this information through mobile applications or digital signage, enabling them to identify and navigate to vacant spaces with ease.</p>
-                        
-                        <h5>Improving Overall Traffic Flow</h5>
-                        <p>By implementing smart parking solutions, organizations contribute to the improvement of overall traffic flow in urban areas. Efficient parking systems minimize the time spent searching for parking spaces, reducing the number of vehicles circling the streets. Consequently, this leads to decreased traffic congestion, improved air quality, and a more sustainable urban environment. Furthermore, when drivers are aware of parking availability in advance, they can plan their routes accordingly, optimizing the efficiency of their journeys.</p>
-                    </div>
-
-                    <div class="solution-text" id="education-content" style="display: none;">
-                        <h4>Education</h4>
-                        <h5>Enhancing Campus Safety and Security with Tautsecure's Innovative Solutions</h5>
-                        <p>As an educational institution, ensuring the safety and security of your campus is of utmost importance. With the increasing prevalence of internal and external threats, it is crucial to implement robust security measures. Tautsecure offers cutting-edge technology solutions that not only deter threats but also foster a positive and secure environment. Let's explore how Tautsecure can revolutionize campus safety.</p>
-                        
-                        <h5>Securing Entrances, Lobbies, and Offices</h5>
-                        <p>One key area that requires heightened security is the entrances, lobbies, and offices of educational campuses. Tautsecure's advanced security solutions provide comprehensive coverage in these critical zones. By leveraging state-of-the-art technology and high-definition clarity, Tautsecure equips school systems with the tools necessary to monitor activities and assets effectively. With real-time monitoring, school resource officers can identify and address potential threats promptly.</p>
-                        
-                        <h5>Safeguarding Hallways, Corridors, and Classrooms</h5>
-                        <p>The hallways, corridors, and classrooms are the lifelines of any educational institution. Tautsecure understands the significance of securing these spaces. By implementing their innovative security products, schools can significantly reduce incidents of theft, vandalism, and violence. Tautsecure's intelligent learning technology and analytics enable proactive response capabilities, ensuring district-wide situational awareness. This comprehensive approach aids in preventing and effectively managing disaster situations.</p>
-                        
-                        <h5>Ensuring Safety in Sporting Arenas/Stadiums</h5>
-                        <p>Sporting arenas and stadiums bring communities together, but they also require heightened security measures. Tautsecure's security solutions extend to these spaces, creating a safe environment for students, staff, and spectators. By deploying cutting-edge technology, such as surveillance cameras and access control systems, Tautsecure enables efficient monitoring and threat detection. This proactive approach mitigates risks and ensures the overall safety of everyone present.</p>
-                        
-                        <h5>Protecting Parking Lots and School Buses</h5>
-                        <p>Parking lots and school buses are areas prone to security breaches. To combat this, Tautsecure offers innovative solutions tailored to these specific environments. By employing surveillance cameras and license plate recognition technology, Tautsecure enables efficient monitoring and tracking of vehicles. This not only deters potential threats but also aids in asset management and ensures the safety of students during transit.</p>
-                        
-                        <h5>Fortifying Libraries and Gyms</h5>
-                        <p>Libraries and gyms serve as hubs for learning and physical fitness. Tautsecure recognizes the need to secure these spaces effectively. By integrating their advanced security solutions, schools can maintain a safe and conducive environment for students and staff. With real-time monitoring and intelligent analytics, Tautsecure's technology empowers educational institutions to proactively address any potential risks or threats, fostering a secure atmosphere for all.</p>
-                    </div>
-                </div>
-
-                <!-- Cyber Security UI Elements -->
-                <div class="cyber-ui">
-                    <div class="cyber-panel">
-                        <div class="cyber-title">CYBER SECURITY</div>
-                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                            <div style="width: 20px; height: 20px; background: #00aaff; border-radius: 50%;"></div>
-                            <span style="font-size: 0.8rem; color: #fff;">Active</span>
-                        </div>
-                        <div style="display: flex; gap: 2px;">
-                            <div style="width: 8px; height: 8px; background: #00aaff;"></div>
-                            <div style="width: 8px; height: 8px; background: #00aaff;"></div>
-                            <div style="width: 8px; height: 8px; background: #00aaff;"></div>
-                            <div style="width: 8px; height: 8px; background: rgba(0, 170, 255, 0.3);"></div>
-                            <div style="width: 8px; height: 8px; background: rgba(0, 170, 255, 0.3);"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="login-form">
-                        <input type="text" placeholder="Username" />
-                        <input type="password" placeholder="Password" />
-                        <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: rgba(255, 255, 255, 0.6); margin-bottom: 0.5rem;">
-                            <span>Remember me</span>
-                            <span>Forgot password</span>
-                        </div>
-                        <button class="login-btn">Login</button>
-                    </div>
-                </div>
-
-                <div class="padlock-icon">🔒</div>
+            <div class="visitor-list">
+              <div class="visitor-item">
+                <div class="visitor-bullet"></div>
+                <span>Municipal Authorities</span>
+              </div>
+              <div class="visitor-item">
+                <div class="visitor-bullet"></div>
+                <span>Schools, Colleges & other educational institutions</span>
+              </div>
+              <div class="visitor-item">
+                <div class="visitor-bullet"></div>
+                <span>Architects & Building Developers</span>
+              </div>
+              <div class="visitor-item">
+                <div class="visitor-bullet"></div>
+                <span>Hospitals and Health Centers</span>
+              </div>
+              <div class="visitor-item">
+                <div class="visitor-bullet"></div>
+                <span>Hotel, Real Estate & Retail Management</span>
+              </div>
+              <div class="visitor-item">
+                <div class="visitor-bullet"></div>
+                <span>Banks and financial institutions</span>
+              </div>
+              <div class="visitor-item">
+                <div class="visitor-bullet"></div>
+                <span>Police & Law Enforcement Agencies</span>
+              </div>
+              <div class="visitor-item">
+                <div class="visitor-bullet"></div>
+                <span>Safety & Security Consultants & Manager</span>
+              </div>
+              <div class="visitor-item">
+                <div class="visitor-bullet"></div>
+                <span>Hydro Power Projects</span>
+              </div>
+              <div class="visitor-item">
+                <div class="visitor-bullet"></div>
+                <span>Import & Export Agencies</span>
+              </div>
+              <div class="visitor-item">
+                <div class="visitor-bullet"></div>
+                <span>Oil & Gas Agencies</span>
+              </div>
+              <div class="visitor-item">
+                <div class="visitor-bullet"></div>
+                <span>Highway Authorities</span>
+              </div>
+              <div class="visitor-item">
+                <div class="visitor-bullet"></div>
+                <span>Trade Associations</span>
+              </div>
+              <div class="visitor-item">
+                <div class="visitor-bullet"></div>
+                <span>Government Ministries</span>
+              </div>
+              <div class="visitor-item">
+                <div class="visitor-bullet"></div>
+                <span>Public Sector Undertakings</span>
+              </div>
+              <div class="visitor-item">
+                <div class="visitor-bullet"></div>
+                <span>Traffic Consultants & Firms</span>
+              </div>
+              <div class="visitor-item">
+                <div class="visitor-bullet"></div>
+                <span>Resident Welfare Association</span>
+              </div>
+              <div class="visitor-item">
+                <div class="visitor-bullet"></div>
+                <span>Systems & Safety Products Manufacturers/ Suppliers/ Installers & many more..</span>
+              </div>
             </div>
+          </div>
         </div>
+
+        <!-- Right Side - Solutions Content -->
+        <div class="solutions-content">
+          <div class="content-overlay">
+            <div class="solution-header">
+              <h1 class="solution-title">Solutions</h1>
+              <p class="solution-subtitle">Comprehensive security solutions for every sector</p>
+            </div>
+
+            <div class="solution-text" id="banking-content">
+              <h4>Banking & Finance</h4>
+              <h5>Strengthening Financial Facilities with TautSecure's Banking Surveillance Solution</h5>
+              <p>TautSecure's Banking Surveillance Solution encompasses a suite of powerful and intelligent functionalities. These cutting-edge features are backed by advanced technology, enabling seamless integration of your financial facilities. Whether it's branch offices, service centers, or treasuries, TautSecure's centralized monitoring solution streamlines operations, making implementation, management, and integration a breeze.</p>
+
+              <h5>Effective Surveillance of Bank Assets</h5>
+              <p>With TautSecure, you can ensure comprehensive and effective surveillance of your bank assets. By leveraging state-of-the-art technology, our solution provides real-time monitoring and alerts, enabling proactive risk management. Through advanced video analytics and intelligent algorithms, potential security breaches can be identified promptly, allowing for swift response and mitigation.</p>
+
+              <h5>Enhanced Security for Clients and Personnel</h5>
+              <p>The safety of your clients and personnel is of utmost importance. TautSecure's surveillance solutions offer robust security measures to protect them. By implementing cutting-edge access control systems and biometric authentication, unauthorized access to restricted areas is mitigated. Our intelligent surveillance solution can accurately detect and alert for any suspicious activities, enabling proactive measures to ensure the utmost safety and security.</p>
+
+              <h5>Securing ATM Areas with Unwavering Reliability</h5>
+              <p>ATMs are vital touchpoints for customers, and their security is crucial. TautSecure's surveillance solutions provide unwavering reliability in securing ATM areas. With advanced video analytics and real-time monitoring, any unusual or suspicious activities are detected promptly. This enables proactive measures to safeguard the integrity of ATM transactions and protect customers from potential threats such as skimming or card cloning.</p>
+
+              <h5>Improving Accountability, Efficiency, and Customer Satisfaction</h5>
+              <p>Beyond enhancing security, TautSecure's surveillance solutions deliver a range of additional benefits that drive business success. By fostering accountability through comprehensive surveillance, businesses can mitigate internal fraud and maintain transparency. Moreover, the implementation of intelligent analytics helps identify process bottlenecks and optimize operations, leading to improved efficiency.</p>
+              <p>Additionally, TautSecure's surveillance solutions play a vital role in enhancing customer satisfaction. By providing a secure environment, customers feel confident in conducting their financial transactions. This fosters trust and loyalty, ultimately strengthening the bond between businesses and their clientele.</p>
+            </div>
+
+            <div class="solution-text" id="parking-content" style="display: none">
+              <h4>Parking Solutions</h4>
+              <h5>The Benefits of Smart Parking Solutions for Enhanced User Experience</h5>
+              <p>In today's fast-paced world, finding an available parking space quickly is crucial, as it can save us valuable time. Additionally, outdated paper ticketing systems often lead to congestion, with drivers queuing to enter and exit parking lots. To address these challenges effectively, it is imperative for organizations such as retail companies, private businesses, and public authorities to consider implementing smart parking solutions. These innovative technologies, including intelligent parking guidance and smart entrance/exit control systems, not only facilitate efficient and seamless parking experiences but also enhance user satisfaction.</p>
+
+              <h5>Streamlined Parking Process with Intelligent Guidance</h5>
+              <p>One of the key advantages of smart parking solutions is their ability to optimize the parking process. By leveraging intelligent parking guidance systems, parking businesses can ensure a smooth flow of vehicles at all times. These systems utilize real-time data and advanced algorithms to guide drivers to available parking spaces quickly and effortlessly. By eliminating the need for drivers to search aimlessly for parking, these solutions greatly reduce the time and frustration associated with finding a suitable spot.</p>
+
+              <h5>Efficient Entrance and Exit Control</h5>
+              <p>Traditional parking facilities often experience bottlenecks and congestion during peak hours, leading to delays and inconvenience for customers. However, with smart entrance/exit control mechanisms in place, these issues can be mitigated effectively. Automated barriers play a vital role in maintaining a steady flow of vehicles through parking lots, ensuring a hassle-free experience for customers. By replacing manual ticketing systems with electronic payment methods and license plate recognition technology, smart parking solutions eliminate the need for physical tickets and reduce waiting times significantly.</p>
+
+              <h5>Enhanced User Experience through Flexibility</h5>
+              <p>To provide the utmost convenience to customers, parking businesses must prioritize flexibility. Smart parking solutions offer various features that cater to this need. For instance, advanced parking management systems allow users to reserve parking spaces in advance, guaranteeing their availability upon arrival. This feature is particularly beneficial in high-demand areas or during special events when parking availability is limited. By offering such flexibility, parking businesses can enhance customer satisfaction and loyalty.</p>
+
+              <h5>Quick and Simple Parking Space Locating</h5>
+              <p>Locating an available parking space within a crowded parking facility can be a time-consuming and frustrating task. Smart parking solutions address this issue by providing users with real-time information on parking availability. By integrating sensor technologies and data analytics, these systems can accurately determine the occupancy status of each parking spot. Users can conveniently access this information through mobile applications or digital signage, enabling them to identify and navigate to vacant spaces with ease.</p>
+
+              <h5>Improving Overall Traffic Flow</h5>
+              <p>By implementing smart parking solutions, organizations contribute to the improvement of overall traffic flow in urban areas. Efficient parking systems minimize the time spent searching for parking spaces, reducing the number of vehicles circling the streets. Consequently, this leads to decreased traffic congestion, improved air quality, and a more sustainable urban environment. Furthermore, when drivers are aware of parking availability in advance, they can plan their routes accordingly, optimizing the efficiency of their journeys.</p>
+            </div>
+
+            <div class="solution-text" id="education-content" style="display: none">
+              <h4>Education</h4>
+              <h5>Enhancing Campus Safety and Security with Tautsecure's Innovative Solutions</h5>
+              <p>As an educational institution, ensuring the safety and security of your campus is of utmost importance. With the increasing prevalence of internal and external threats, it is crucial to implement robust security measures. Tautsecure offers cutting-edge technology solutions that not only deter threats but also foster a positive and secure environment. Let's explore how Tautsecure can revolutionize campus safety.</p>
+
+              <h5>Securing Entrances, Lobbies, and Offices</h5>
+              <p>One key area that requires heightened security is the entrances, lobbies, and offices of educational campuses. Tautsecure's advanced security solutions provide comprehensive coverage in these critical zones. By leveraging state-of-the-art technology and high-definition clarity, Tautsecure equips school systems with the tools necessary to monitor activities and assets effectively. With real-time monitoring, school resource officers can identify and address potential threats promptly.</p>
+
+              <h5>Safeguarding Hallways, Corridors, and Classrooms</h5>
+              <p>The hallways, corridors, and classrooms are the lifelines of any educational institution. Tautsecure understands the significance of securing these spaces. By implementing their innovative security products, schools can significantly reduce incidents of theft, vandalism, and violence. Tautsecure's intelligent learning technology and analytics enable proactive response capabilities, ensuring district-wide situational awareness. This comprehensive approach aids in preventing and effectively managing disaster situations.</p>
+
+              <h5>Ensuring Safety in Sporting Arenas/Stadiums</h5>
+              <p>Sporting arenas and stadiums bring communities together, but they also require heightened security measures. Tautsecure's security solutions extend to these spaces, creating a safe environment for students, staff, and spectators. By deploying cutting-edge technology, such as surveillance cameras and access control systems, Tautsecure enables efficient monitoring and threat detection. This proactive approach mitigates risks and ensures the overall safety of everyone present.</p>
+
+              <h5>Protecting Parking Lots and School Buses</h5>
+              <p>Parking lots and school buses are areas prone to security breaches. To combat this, Tautsecure offers innovative solutions tailored to these specific environments. By employing surveillance cameras and license plate recognition technology, Tautsecure enables efficient monitoring and tracking of vehicles. This not only deters potential threats but also aids in asset management and ensures the safety of students during transit.</p>
+
+              <h5>Fortifying Libraries and Gyms</h5>
+              <p>Libraries and gyms serve as hubs for learning and physical fitness. Tautsecure recognizes the need to secure these spaces effectively. By integrating their advanced security solutions, schools can maintain a safe and conducive environment for students and staff. With real-time monitoring and intelligent analytics, Tautsecure's technology empowers educational institutions to proactively address any potential risks or threats, fostering a secure atmosphere for all.</p>
+            </div>
+          </div>
+
+          <!-- Cyber Security UI Elements -->
+          <div class="cyber-ui">
+            <div class="cyber-panel">
+              <div class="cyber-title">CYBER SECURITY</div>
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem">
+                <div style="width: 20px; height: 20px; background: #00aaff; border-radius: 50%"></div>
+                <span style="font-size: 0.8rem; color: #fff">Active</span>
+              </div>
+              <div style="display: flex; gap: 2px">
+                <div style="width: 8px; height: 8px; background: #00aaff"></div>
+                <div style="width: 8px; height: 8px; background: #00aaff"></div>
+                <div style="width: 8px; height: 8px; background: #00aaff"></div>
+                <div style="width: 8px; height: 8px; background: rgba(0, 170, 255, 0.3)"></div>
+                <div style="width: 8px; height: 8px; background: rgba(0, 170, 255, 0.3)"></div>
+              </div>
+            </div>
+
+            <div class="login-form">
+              <input type="text" placeholder="Username" />
+              <input type="password" placeholder="Password" />
+              <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: rgba(255, 255, 255, 0.6); margin-bottom: 0.5rem">
+                <span>Remember me</span>
+                <span>Forgot password</span>
+              </div>
+              <button class="login-btn">Login</button>
+            </div>
+          </div>
+
+          <div class="padlock-icon">🔒</div>
+        </div>
+      </div>
     </main>
 
     <footer>
-        <div>© 2023 Taut Secure, All Rights Reserved</div>
-        <div style="margin-top: 0.5rem; font-size: 0.95rem">Call: <a href="tel:+917337836586" style="color: var(--primary); text-decoration: none">+91 7337836586</a> | Email: <a href="mailto:info@tautsecure.com" style="color: var(--primary); text-decoration: none">info@tautsecure.com</a></div>
-        <div style="margin-top: 0.5rem; font-size: 0.95rem">Bangalore | Mangalore | Kasaragod</div>
+      <div>© 2023 Taut Secure, All Rights Reserved</div>
+      <div style="margin-top: 0.5rem; font-size: 0.95rem">Call: <a href="tel:+917337836586" style="color: var(--primary); text-decoration: none">+91 7337836586</a> | Email: <a href="mailto:info@tautsecure.com" style="color: var(--primary); text-decoration: none">info@tautsecure.com</a></div>
+      <div style="margin-top: 0.5rem; font-size: 0.95rem">Bangalore | Mangalore | Kasaragod</div>
     </footer>
 
     <script>
-        // Theme switcher
-        const themeSwitch = document.getElementById("themeSwitch");
-        themeSwitch.addEventListener("click", () => {
-            const currentTheme = document.body.getAttribute("data-theme");
-            if (currentTheme === "dark") {
-                document.body.removeAttribute("data-theme");
-                localStorage.setItem("tautsecure-theme", "light");
-            } else {
-                document.body.setAttribute("data-theme", "dark");
-                localStorage.setItem("tautsecure-theme", "dark");
-            }
+      // Theme switcher
+      const themeSwitch = document.getElementById("themeSwitch");
+      themeSwitch.addEventListener("click", () => {
+        const currentTheme = document.body.getAttribute("data-theme");
+        if (currentTheme === "dark") {
+          document.body.removeAttribute("data-theme");
+          localStorage.setItem("tautsecure-theme", "light");
+        } else {
+          document.body.setAttribute("data-theme", "dark");
+          localStorage.setItem("tautsecure-theme", "dark");
+        }
+      });
+
+      // Load theme from localStorage
+      (function () {
+        const savedTheme = localStorage.getItem("tautsecure-theme");
+        if (savedTheme === "dark") {
+          document.body.setAttribute("data-theme", "dark");
+        }
+      })();
+
+      // Solution navigation
+      const visitorItems = document.querySelectorAll(".visitor-item");
+      const solutionContents = {
+        banking: document.getElementById("banking-content"),
+        parking: document.getElementById("parking-content"),
+        education: document.getElementById("education-content"),
+      };
+
+      // Add click handlers for visitor items
+      visitorItems.forEach((item, index) => {
+        item.addEventListener("click", () => {
+          // Remove active class from all items
+          visitorItems.forEach((i) => (i.style.color = "#fff"));
+
+          // Add active class to clicked item
+          item.style.color = "var(--primary)";
+
+          // Show corresponding content
+          const solutions = ["banking", "parking", "education"];
+          const solutionKey = solutions[index % solutions.length];
+
+          // Hide all content
+          Object.values(solutionContents).forEach((content) => {
+            if (content) content.style.display = "none";
+          });
+
+          // Show selected content
+          if (solutionContents[solutionKey]) {
+            solutionContents[solutionKey].style.display = "block";
+          }
         });
+      });
 
-        // Load theme from localStorage
-        (function () {
-            const savedTheme = localStorage.getItem("tautsecure-theme");
-            if (savedTheme === "dark") {
-                document.body.setAttribute("data-theme", "dark");
-            }
-        })();
-
-        // Solution navigation
-        const visitorItems = document.querySelectorAll('.visitor-item');
-        const solutionContents = {
-            'banking': document.getElementById('banking-content'),
-            'parking': document.getElementById('parking-content'),
-            'education': document.getElementById('education-content')
-        };
-
-        // Add click handlers for visitor items
-        visitorItems.forEach((item, index) => {
-            item.addEventListener('click', () => {
-                // Remove active class from all items
-                visitorItems.forEach(i => i.style.color = '#fff');
-                
-                // Add active class to clicked item
-                item.style.color = 'var(--primary)';
-                
-                // Show corresponding content
-                const solutions = ['banking', 'parking', 'education'];
-                const solutionKey = solutions[index % solutions.length];
-                
-                // Hide all content
-                Object.values(solutionContents).forEach(content => {
-                    if (content) content.style.display = 'none';
-                });
-                
-                // Show selected content
-                if (solutionContents[solutionKey]) {
-                    solutionContents[solutionKey].style.display = 'block';
-                }
-            });
-        });
-
-        // Set default active content
-        document.getElementById('banking-content').style.display = 'block';
+      // Set default active content
+      document.getElementById("banking-content").style.display = "block";
     </script>
-</body>
-</html> 
+  </body>
+</html>
