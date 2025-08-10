@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Launching Soon - Taut Secure | Because Waiting is an Art</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      :root {
+        --primary: #d90429;
+        --primary-dark: #b00020;
+        --secondary: #2b2d42;
+        --accent: #8d99ae;
+        --background: #0a0a0a;
+        --foreground: #ffffff;
+        --card-bg: rgba(255, 255, 255, 0.05);
+        --border: rgba(255, 255, 255, 0.1);
+        --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        --gradient: linear-gradient(135deg, #d90429 0%, #b00020 100%);
+        --gradient-glow: linear-gradient(135deg, #d90429 0%, #ff6b6b 50%, #b00020 100%);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        background: var(--background);
+        color: var(--foreground);
+        overflow-x: hidden;
+        min-height: 100vh;
+      }
+
+      /* Animated Background */
+      .bg-animation {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: radial-gradient(circle at 20% 80%, rgba(217, 4, 41, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(176, 0, 32, 0.1) 0%, transparent 50%), radial-gradient(circle at 40% 40%, rgba(141, 153, 174, 0.05) 0%, transparent 50%);
+      }
+
+      .floating-particles {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+
+      .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: var(--primary);
+        border-radius: 50%;
+        animation: float 6s ease-in-out infinite;
+        opacity: 0.6;
+      }
+
+      .particle:nth-child(1) {
+        left: 10%;
+        animation-delay: 0s;
+      }
+      .particle:nth-child(2) {
+        left: 20%;
+        animation-delay: 2s;
+      }
+      .particle:nth-child(3) {
+        left: 30%;
+        animation-delay: 4s;
+      }
+      .particle:nth-child(4) {
+        left: 40%;
+        animation-delay: 1s;
+      }
+      .particle:nth-child(5) {
+        left: 50%;
+        animation-delay: 3s;
+      }
+      .particle:nth-child(6) {
+        left: 60%;
+        animation-delay: 5s;
+      }
+      .particle:nth-child(7) {
+        left: 70%;
+        animation-delay: 2s;
+      }
+      .particle:nth-child(8) {
+        left: 80%;
+        animation-delay: 4s;
+      }
+      .particle:nth-child(9) {
+        left: 90%;
+        animation-delay: 1s;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) scale(1);
+          opacity: 0.6;
+        }
+        50% {
+          transform: translateY(-20px) scale(1.2);
+          opacity: 1;
+        }
+      }
+
+      /* Main Container */
+      .launching-container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Logo Section */
+      .logo-section {
+        text-align: center;
+        margin-bottom: 3rem;
+        animation: logoFloat 4s ease-in-out infinite;
+      }
+
+      .logo {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 1rem;
+        background: var(--gradient);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: white;
+        box-shadow: 0 0 50px rgba(217, 4, 41, 0.5);
+        animation: logoGlow 2s ease-in-out infinite alternate;
+      }
+
+      @keyframes logoFloat {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      @keyframes logoGlow {
+        0% {
+          box-shadow: 0 0 50px rgba(217, 4, 41, 0.5);
+        }
+        100% {
+          box-shadow: 0 0 80px rgba(217, 4, 41, 0.8);
+        }
+      }
+
+      .company-name {
+        font-size: 2.5rem;
+        font-weight: 800;
+        background: var(--gradient-glow);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.5rem;
+      }
+
+      .tagline {
+        font-size: 1.1rem;
+        color: var(--accent);
+        font-weight: 400;
+      }
+
+      /* Main Content */
+      .main-content {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .launch-title {
+        font-size: 4rem;
+        font-weight: 900;
+        margin-bottom: 1rem;
+        background: var(--gradient-glow);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: titleGlow 3s ease-in-out infinite alternate;
+      }
+
+      @keyframes titleGlow {
+        0% {
+          filter: drop-shadow(0 0 20px rgba(217, 4, 41, 0.3));
+        }
+        100% {
+          filter: drop-shadow(0 0 40px rgba(217, 4, 41, 0.6));
+        }
+      }
+
+      .subtitle {
+        font-size: 1.5rem;
+        color: var(--accent);
+        margin-bottom: 3rem;
+        font-weight: 300;
+      }
+
+      /* Sarcastic Quotes Section */
+      .quotes-section {
+        margin: 3rem 0;
+        display: grid;
+        gap: 2rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .quote-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 2rem;
+        backdrop-filter: blur(20px);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .quote-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--gradient);
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+      }
+
+      .quote-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .quote-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow);
+        border-color: rgba(217, 4, 41, 0.3);
+      }
+
+      .quote-text {
+        font-size: 1.1rem;
+        font-style: italic;
+        margin-bottom: 1rem;
+        line-height: 1.6;
+        color: var(--foreground);
+      }
+
+      .quote-author {
+        font-size: 0.9rem;
+        color: var(--accent);
+        font-weight: 500;
+      }
+
+      /* Countdown Section */
+      .countdown-section {
+        margin: 3rem 0;
+        text-align: center;
+      }
+
+      .countdown-title {
+        font-size: 1.3rem;
+        color: var(--accent);
+        margin-bottom: 2rem;
+        font-weight: 500;
+      }
+
+      .countdown-timer {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .countdown-item {
+        text-align: center;
+        min-width: 80px;
+      }
+
+      .countdown-number {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--primary);
+        display: block;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 0 20px rgba(217, 4, 41, 0.5);
+      }
+
+      .countdown-label {
+        font-size: 0.9rem;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* Progress Bar */
+      .progress-section {
+        margin: 3rem 0;
+        text-align: center;
+      }
+
+      .progress-title {
+        font-size: 1.3rem;
+        color: var(--accent);
+        margin-bottom: 1rem;
+        font-weight: 500;
+      }
+
+      .progress-bar {
+        width: 100%;
+        max-width: 400px;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: var(--gradient);
+        border-radius: 10px;
+        width: 0%;
+        animation: progressFill 3s ease-out forwards;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .progress-fill::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        animation: shimmer 2s infinite;
+      }
+
+      @keyframes progressFill {
+        to {
+          width: 87%;
+        }
+      }
+
+      .progress-fill::after {
+        animation: shimmer 2s infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          left: -100%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+
+      .progress-text {
+        margin-top: 1rem;
+        font-size: 1rem;
+        color: var(--accent);
+      }
+
+      /* CTA Section */
+      .cta-section {
+        margin: 3rem 0;
+        text-align: center;
+      }
+
+      .cta-title {
+        font-size: 1.5rem;
+        color: var(--foreground);
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+      }
+
+      .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .cta-btn {
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cta-btn.primary {
+        background: var(--gradient);
+        color: white;
+        box-shadow: 0 4px 20px rgba(217, 4, 41, 0.3);
+      }
+
+      .cta-btn.secondary {
+        background: transparent;
+        color: var(--foreground);
+        border: 2px solid var(--border);
+      }
+
+      .cta-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 30px rgba(217, 4, 41, 0.4);
+      }
+
+      .cta-btn.primary:hover {
+        box-shadow: 0 8px 30px rgba(217, 4, 41, 0.6);
+      }
+
+      .cta-btn.secondary:hover {
+        background: var(--card-bg);
+        border-color: var(--primary);
+      }
+
+      /* Footer */
+      .footer {
+        margin-top: 4rem;
+        text-align: center;
+        color: var(--accent);
+        font-size: 0.9rem;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+
+      .social-link {
+        width: 40px;
+        height: 40px;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent);
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .social-link:hover {
+        background: var(--primary);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(217, 4, 41, 0.3);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .launch-title {
+          font-size: 2.5rem;
+        }
+
+        .company-name {
+          font-size: 2rem;
+        }
+
+        .subtitle {
+          font-size: 1.2rem;
+        }
+
+        .countdown-timer {
+          gap: 1rem;
+        }
+
+        .countdown-number {
+          font-size: 2rem;
+        }
+
+        .cta-buttons {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .cta-btn {
+          width: 100%;
+          max-width: 300px;
+          justify-content: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .launching-container {
+          padding: 1rem;
+        }
+
+        .launch-title {
+          font-size: 2rem;
+        }
+
+        .company-name {
+          font-size: 1.8rem;
+        }
+
+        .quote-card {
+          padding: 1.5rem;
+        }
+
+        .countdown-timer {
+          gap: 0.5rem;
+        }
+
+        .countdown-item {
+          min-width: 60px;
+        }
+
+        .countdown-number {
+          font-size: 1.8rem;
+        }
+      }
+
+      /* Loading Animation */
+      .loading-dots {
+        display: inline-block;
+        margin-left: 0.5rem;
+      }
+
+      .loading-dots::after {
+        content: "";
+        animation: loadingDots 1.5s infinite;
+      }
+
+      @keyframes loadingDots {
+        0%,
+        20% {
+          content: "";
+        }
+        40% {
+          content: ".";
+        }
+        60% {
+          content: "..";
+        }
+        80%,
+        100% {
+          content: "...";
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+      <div class="floating-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+      </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="launching-container">
+      <!-- Logo Section -->
+      <div class="logo-section">
+        <div class="logo">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h1 class="company-name">Taut Secure</h1>
+        <p class="tagline">Because waiting is an art form</p>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <h2 class="launch-title">Launching Soon</h2>
+        <p class="subtitle">We're almost there... or are we? 🤔</p>
+
+        <!-- Sarcastic Quotes Section -->
+        <div class="quotes-section">
+          <div class="quote-card" data-aos="fade-up">
+            <p class="quote-text">"Launching soon" - the three most optimistic words in tech, right after "it's just a small bug" and "this will only take 5 minutes."</p>
+            <p class="quote-author">- Every Developer Ever</p>
+          </div>
+
+          <div class="quote-card" data-aos="fade-up" data-aos-delay="200">
+            <p class="quote-text">"We're 99% complete" - which means we're either almost done or we just discovered the other 99% we forgot about.</p>
+            <p class="quote-author">- Project Management 101</p>
+          </div>
+
+          <div class="quote-card" data-aos="fade-up" data-aos-delay="400">
+            <p class="quote-text">"Just a few more days" - the universal language of procrastination, spoken fluently by developers worldwide.</p>
+            <p class="quote-author">- The Procrastination Dictionary</p>
+          </div>
+        </div>
+
+        <!-- Countdown Section -->
+        <div class="countdown-section">
+          <h3 class="countdown-title">Time Until Launch (Probably)</h3>
+          <div class="countdown-timer">
+            <div class="countdown-item">
+              <span class="countdown-number" id="days">--</span>
+              <span class="countdown-label">Days</span>
+            </div>
+            <div class="countdown-item">
+              <span class="countdown-number" id="hours">--</span>
+              <span class="countdown-label">Hours</span>
+            </div>
+            <div class="countdown-item">
+              <span class="countdown-number" id="minutes">--</span>
+              <span class="countdown-label">Minutes</span>
+            </div>
+            <div class="countdown-item">
+              <span class="countdown-number" id="seconds">--</span>
+              <span class="countdown-label">Seconds</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-section">
+          <h3 class="progress-title">Development Progress</h3>
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+          </div>
+          <p class="progress-text">87% Complete <span class="loading-dots"></span></p>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+          <h3 class="cta-title">While You Wait (And Wait...)</h3>
+          <div class="cta-buttons">
+            <a href="index.html" class="cta-btn primary">
+              <i class="fas fa-home"></i>
+              Back to Home
+            </a>
+            <a href="mailto:info@tautsecure.com" class="cta-btn secondary">
+              <i class="fas fa-envelope"></i>
+              Ask "When?"
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <div class="social-links">
+          <a href="#" class="social-link" title="Follow us on Twitter">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="social-link" title="Like us on Facebook">
+            <i class="fab fa-facebook"></i>
+          </a>
+          <a href="#" class="social-link" title="Connect on LinkedIn">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="#" class="social-link" title="Follow on Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+        <p>&copy; 2025 Taut Secure. "Soon" is a relative term.</p>
+      </div>
+    </div>
+
+    <script>
+      // Countdown Timer
+      function updateCountdown() {
+        // Set launch date (you can modify this)
+        const launchDate = new Date("2025-08-10T23:59:59").getTime();
+        const now = new Date().getTime();
+        const distance = launchDate - now;
+
+        if (distance > 0) {
+          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          document.getElementById("days").textContent = days.toString().padStart(2, "0");
+          document.getElementById("hours").textContent = hours.toString().padStart(2, "0");
+          document.getElementById("minutes").textContent = minutes.toString().padStart(2, "0");
+          document.getElementById("seconds").textContent = seconds.toString().padStart(2, "0");
+        } else {
+          // Launch time reached
+          document.getElementById("days").textContent = "00";
+          document.getElementById("hours").textContent = "00";
+          document.getElementById("minutes").textContent = "00";
+          document.getElementById("seconds").textContent = "00";
+        }
+      }
+
+      // Update countdown every second
+      setInterval(updateCountdown, 1000);
+      updateCountdown(); // Initial call
+
+      // Add some interactive fun
+      document.addEventListener("DOMContentLoaded", function () {
+        // Add click effects to quote cards
+        const quoteCards = document.querySelectorAll(".quote-card");
+        quoteCards.forEach((card) => {
+          card.addEventListener("click", function () {
+            this.style.transform = "scale(0.95)";
+            setTimeout(() => {
+              this.style.transform = "translateY(-5px)";
+            }, 150);
+          });
+        });
+
+        // Add hover effect to logo
+        const logo = document.querySelector(".logo");
+        logo.addEventListener("mouseenter", function () {
+          this.style.animation = "logoGlow 0.5s ease-in-out infinite alternate";
+        });
+
+        logo.addEventListener("mouseleave", function () {
+          this.style.animation = "logoGlow 2s ease-in-out infinite alternate";
+        });
+
+        // Random particle movement
+        const particles = document.querySelectorAll(".particle");
+        particles.forEach((particle) => {
+          setInterval(() => {
+            const randomX = Math.random() * 100;
+            const randomY = Math.random() * 100;
+            particle.style.left = randomX + "%";
+            particle.style.top = randomY + "%";
+          }, 8000);
+        });
+      });
+
+      // Easter egg: Konami code
+      let konamiCode = [];
+      const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // ↑↑↓↓←→←→BA
+
+      document.addEventListener("keydown", function (e) {
+        konamiCode.push(e.keyCode);
+        if (konamiCode.length > konamiSequence.length) {
+          konamiCode.shift();
+        }
+
+        if (konamiCode.join(",") === konamiSequence.join(",")) {
+          // Konami code activated!
+          document.body.style.animation = "shake 0.5s ease-in-out";
+          setTimeout(() => {
+            document.body.style.animation = "";
+          }, 500);
+
+          // Show a fun message
+          const funMessage = document.createElement("div");
+          funMessage.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: var(--gradient);
+                    color: white;
+                    padding: 2rem;
+                    border-radius: 20px;
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    z-index: 1000;
+                    text-align: center;
+                    box-shadow: 0 0 50px rgba(217, 4, 41, 0.8);
+                `;
+          funMessage.innerHTML = "🎉 You found the secret!<br><small>Now go back to work...</small>";
+          document.body.appendChild(funMessage);
+
+          setTimeout(() => {
+            document.body.removeChild(funMessage);
+          }, 3000);
+        }
+      });
+
+      // Add shake animation
+      const style = document.createElement("style");
+      style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-5px); }
+                75% { transform: translateX(5px); }
+            }
+        `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>
