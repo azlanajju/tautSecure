@@ -12,8 +12,8 @@
       // window.location.href="./launching-soon.html"
 
       // Popup control variables
-      let showContactPopup = false; // Control whether to show contact popup
-      let showIndependencePopup = true; // Control whether to show independence popup
+      let showContactPopup = true; // Control whether to show contact popup
+      let showEventPopup = false; // Control whether to show Event popup
     </script>
     <style>
       :root {
@@ -75,7 +75,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        max-width: 1200px;
+        max-width: 1300px;
         margin: 0 auto;
         padding: 1rem 2rem;
         position: relative;
@@ -981,6 +981,22 @@
       }
       .about-title span {
         color: black;
+      }
+      .about-logo {
+        margin-left: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: 50%;
+      }
+      .about-logo img {
+        height: 40px;
+        width: auto;
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+      }
+      .about-logo img:hover {
+        transform: scale(1.05);
       }
       .services {
         position: relative;
@@ -2394,6 +2410,9 @@
         transition: all 0.3s ease;
         border: 1px solid rgba(255, 255, 255, 0.2);
       }
+      .social-links a svg {
+        height: 25px;
+      }
 
       .social-link:hover {
         background: var(--primary);
@@ -3214,15 +3233,15 @@
         z-index: 3;
       }
 
-      /* Independence Popup Styles */
-      .independence-image-container {
+      /* Event Popup Styles */
+      .Event-image-container {
         display: flex;
         justify-content: center;
         align-items: center;
         padding: 1rem;
       }
 
-      .independence-image {
+      .Event-image {
         max-width: 100%;
         height: auto;
         border-radius: 12px;
@@ -3230,20 +3249,20 @@
         transition: transform 0.3s ease;
       }
 
-      .independence-image:hover {
+      .Event-image:hover {
         transform: scale(1.02);
       }
 
-      .independence-actions {
+      .Event-actions {
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 1.5rem 0 0 0;
+        /* padding: 1.5rem 0 0 0; */
         margin-top: 1rem;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
       }
 
-      .independence-call-btn {
+      .Event-call-btn {
         background: linear-gradient(135deg, #d90429 0%, #b00020 100%);
         color: white;
         padding: 1rem 2rem;
@@ -3260,7 +3279,7 @@
         overflow: hidden;
       }
 
-      .independence-call-btn::before {
+      .Event-call-btn::before {
         content: "";
         position: absolute;
         top: 0;
@@ -3271,22 +3290,22 @@
         transition: left 0.5s ease;
       }
 
-      .independence-call-btn:hover {
+      .Event-call-btn:hover {
         transform: translateY(-2px);
         box-shadow: 0 8px 25px rgba(217, 4, 41, 0.4);
       }
 
-      .independence-call-btn:hover::before {
+      .Event-call-btn:hover::before {
         left: 100%;
       }
 
-      .independence-call-btn i {
+      .Event-call-btn i {
         position: relative;
         z-index: 1;
         transition: transform 0.3s ease;
       }
 
-      .independence-call-btn:hover i {
+      .Event-call-btn:hover i {
         transform: scale(1.1);
       }
 
@@ -3360,6 +3379,7 @@
               <li><a href="#solutions" class="nav-link">Solutions</a></li>
               <li><a href="#projects" class="nav-link">Reviews</a></li>
               <li><a href="#contact" class="nav-link">Contact Us</a></li>
+              <li><a href="career.html" class="nav-link">Career</a></li>
             </ul>
             <div class="nav-controls mobile-only">
               <div class="india-flag">
@@ -3410,28 +3430,42 @@
         </div>
         <div class="popup-content">
           <div class="contact-method">
-            <div class="contact-icon">📞</div>
+            <div class="contact-icon"><svg style="height: 20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+            </svg></div>
             <div class="contact-details">
               <h4>Call Us Now</h4>
               <p><a href="tel:+917337836586">+91 733 783 6586</a></p>
             </div>
           </div>
           <div class="contact-method">
-            <div class="contact-icon">💬</div>
+            <div class="contact-icon">
+              <svg style="height: 20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.051 3.488"/>
+              </svg>
+            </div>
             <div class="contact-details">
               <h4>WhatsApp</h4>
               <p><a href="https://wa.me/917337836586" target="_blank">Start a conversation</a></p>
             </div>
           </div>
           <div class="contact-method">
-            <div class="contact-icon">📧</div>
+            <div class="contact-icon">
+              <svg style="height: 20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+              </svg>
+            </div>
             <div class="contact-details">
               <h4>Email Us</h4>
               <p><a href="mailto:info@tautsecure.com">info@tautsecure.com</a></p>
             </div>
           </div>
           <div class="contact-method">
-            <div class="contact-icon">🕒</div>
+            <div class="contact-icon">
+              <svg style="height: 20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+              </svg>
+            </div>
             <div class="contact-details">
               <h4>Business Hours</h4>
               <p>Mon - Sat: 9:00 AM - 6:00 PM</p>
@@ -3451,24 +3485,24 @@
       </div>
     </div>
 
-    <!-- Independence Popup -->
-    <div class="popup-overlay" id="independencePopup">
+    <!-- Event Popup -->
+    <div class="popup-overlay" id="EventPopup">
       <div class="popup-container">
         <div class="popup-header">
-          <button class="popup-close" id="independencePopupClose">×</button>
-          <h2 class="popup-title">Independence Day</h2>
+          <button class="popup-close" id="EventPopupClose">×</button>
+          <h2 class="popup-title">Event Offer</h2>
           <p class="popup-subtitle">Celebrating Freedom</p>
         </div>
         <div class="popup-content">
-          <div class="independence-image-container">
-            <img src="./assets/img/poster/independence.png" alt="Independence Day" class="independence-image" />
+          <div class="Event-image-container">
+            <img src="./assets/img/poster/independence.png" alt="Event Day" class="Event-image" />
           </div>
-          <div class="independence-actions">
-            <a href="tel:+917337836586" class="independence-call-btn">
-              <i class="fas fa-phone"></i>
-              Call Now
-            </a>
-          </div>
+        </div>
+        <div class="Event-actions">
+          <a href="tel:+917337836586" class="Event-call-btn">
+            <i class="fas fa-phone"></i>
+            Call Now
+          </a>
         </div>
       </div>
     </div>
@@ -3538,9 +3572,13 @@
               <div class="about-header" data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">
                 <div class="about-header-line"></div>
                 <h3 class="about-title"><span>TAUT</span> SECURE</h3>
+                <div class="about-logo">
+                  <img src="./assets/img/logo.png" alt="Taut Secure Logo" />
+                </div>
               </div>
               <p data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">Taut Secure is a security system company that specializes in providing a range of security products and services to protect individuals and organizations from various security threats.</p>
               <p data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">We offer advanced security solutions, including surveillance cameras, access control systems, Conference system burglar alarms, fire alarms, and monitoring services, among others.</p>
+              <p data-aos="fade-up" data-aos-duration="500" data-aos-delay="100"><strong>Trusted since 2023</strong> - Delivering cutting-edge security solutions with unwavering commitment to quality and customer satisfaction.</p>
             </div>
             <div class="about-img" data-aos="fade-left" data-aos-duration="500" data-aos-delay="100">
               <img src="./assets/img/officebg.png" alt="" />
@@ -3666,45 +3704,79 @@
           <div class="section-content" data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">
             <div class="solutions-container" data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">
               <div class="solutions-sidebar" data-aos="fade-right" data-aos-duration="500" data-aos-delay="100">
-                <div class="solution-option active" data-solution="banking" data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">
+                <div class="solution-option active" data-solution="home-automation" data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">
+                  <div class="solution-icon">🏠</div>
+                  <div class="solution-title">Home Automation</div>
+                </div>
+                <div class="solution-option" data-solution="banking" data-aos="fade-up" data-aos-duration="500" data-aos-delay="200">
                   <div class="solution-icon">🏦</div>
                   <div class="solution-title">Banking & Finance</div>
                 </div>
-                <div class="solution-option" data-solution="parking" data-aos="fade-up" data-aos-duration="500" data-aos-delay="900">
+                <div class="solution-option" data-solution="parking" data-aos="fade-up" data-aos-duration="500" data-aos-delay="300">
                   <div class="solution-icon">🚗</div>
                   <div class="solution-title">Parking Solutions</div>
                 </div>
-                <div class="solution-option" data-solution="education" data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">
+                <div class="solution-option" data-solution="education" data-aos="fade-up" data-aos-duration="500" data-aos-delay="400">
                   <div class="solution-icon">🎓</div>
                   <div class="solution-title">Education</div>
                 </div>
+                <div class="solution-option" data-solution="commercial" data-aos="fade-up" data-aos-duration="500" data-aos-delay="500">
+                  <div class="solution-icon">🏢</div>
+                  <div class="solution-title">Commercial Solutions</div>
+                </div>
               </div>
               <div class="solutions-content" data-aos="fade-left" data-aos-duration="500" data-aos-delay="100">
-                <div class="solution-panel active" id="banking">
+                <div class="solution-panel active" id="home-automation">
+                  <h3 data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">Smart Home Automation Solutions</h3>
+                  <div class="solution-features collapsed">
+                    <div class="feature-item" data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">
+                      <h4>Intelligent Home Control Systems</h4>
+                      <p>TautSecure's Home Automation Solution transforms your living space into a smart, connected environment. Our cutting-edge technology allows you to control lighting, climate, security, and entertainment systems from anywhere using your smartphone or voice commands. Experience the future of home living with seamless automation that enhances comfort, security, and energy efficiency.</p>
+                    </div>
+                    <div class="feature-item" data-aos="fade-up" data-aos-duration="500" data-aos-delay="200">
+                      <h4>Smart Security Integration</h4>
+                      <p>Integrate your home security system with smart automation for comprehensive protection. Control door locks, surveillance cameras, and alarm systems remotely. Receive instant notifications on your mobile device for any security events, ensuring your home and family are always protected even when you're away.</p>
+                    </div>
+                    <div class="feature-item" data-aos="fade-up" data-aos-duration="500" data-aos-delay="300">
+                      <h4>Energy Management & Climate Control</h4>
+                      <p>Optimize your home's energy consumption with intelligent climate control and lighting systems. Automatically adjust temperature and lighting based on occupancy, time of day, and your preferences. Save energy and reduce utility bills while maintaining the perfect environment for your family.</p>
+                    </div>
+                    <div class="feature-item" data-aos="fade-up" data-aos-duration="500" data-aos-delay="400">
+                      <h4>Voice & Mobile Control</h4>
+                      <p>Control your entire home with simple voice commands or through our intuitive mobile app. Whether you're at home or on the go, manage your smart home devices with ease. Create custom automation routines and schedules that adapt to your lifestyle and preferences.</p>
+                    </div>
+                    <div class="feature-item" data-aos="fade-up" data-aos-duration="500" data-aos-delay="500">
+                      <h4>Seamless Device Integration</h4>
+                      <p>Our platform supports a wide range of smart devices and protocols, ensuring compatibility with your existing and future smart home investments. From smart speakers to smart appliances, create a unified ecosystem that works together harmoniously.</p>
+                    </div>
+                  </div>
+                  <div class="read-more-btn" data-target="home-automation" data-aos="fade-up" data-aos-duration="500" data-aos-delay="600">Read More</div>
+                </div>
+                <div class="solution-panel" id="banking">
                   <h3 data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">Banking & Finance Surveillance Solutions</h3>
                   <div class="solution-features collapsed">
                     <div class="feature-item" data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">
                       <h4>Strengthening Financial Facilities</h4>
                       <p>TautSecure's Banking Surveillance Solution encompasses a suite of powerful and intelligent functionalities. These cutting-edge features are backed by advanced technology, enabling seamless integration of your financial facilities. Whether it's branch offices, service centers, or treasuries, TautSecure's centralized monitoring solution streamlines operations, making implementation, management, and integration a breeze.</p>
                     </div>
-                    <div class="feature-item" data-aos="fade-up" data-aos-duration="500" data-aos-delay="1100">
+                    <div class="feature-item" data-aos="fade-up" data-aos-duration="500" data-aos-delay="200">
                       <h4>Effective Surveillance of Bank Assets</h4>
                       <p>With TautSecure, you can ensure comprehensive and effective surveillance of your bank assets. By leveraging state-of-the-art technology, our solution provides real-time monitoring and alerts, enabling proactive risk management. Through advanced video analytics and intelligent algorithms, potential security breaches can be identified promptly, allowing for swift response and mitigation.</p>
                     </div>
-                    <div class="feature-item" data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">
+                    <div class="feature-item" data-aos="fade-up" data-aos-duration="500" data-aos-delay="300">
                       <h4>Enhanced Security for Clients and Personnel</h4>
                       <p>The safety of your clients and personnel is of utmost importance. TautSecure's surveillance solutions offer robust security measures to protect them. By implementing cutting-edge access control systems and biometric authentication, unauthorized access to restricted areas is mitigated. Our intelligent surveillance solution can accurately detect and alert for any suspicious activities, enabling proactive measures to ensure the utmost safety and security.</p>
                     </div>
-                    <div class="feature-item" data-aos="fade-up" data-aos-duration="500" data-aos-delay="1300">
+                    <div class="feature-item" data-aos="fade-up" data-aos-duration="500" data-aos-delay="400">
                       <h4>Securing ATM Areas with Unwavering Reliability</h4>
                       <p>ATMs are vital touchpoints for customers, and their security is crucial. TautSecure's surveillance solutions provide unwavering reliability in securing ATM areas. With advanced video analytics and real-time monitoring, any unusual or suspicious activities are detected promptly. This enables proactive measures to safeguard the integrity of ATM transactions and protect customers from potential threats such as skimming or card cloning.</p>
                     </div>
-                    <div class="feature-item" data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">
+                    <div class="feature-item" data-aos="fade-up" data-aos-duration="500" data-aos-delay="500">
                       <h4>Improving Accountability, Efficiency, and Customer Satisfaction</h4>
                       <p>Beyond enhancing security, TautSecure's surveillance solutions deliver a range of additional benefits that drive business success. By fostering accountability through comprehensive surveillance, businesses can mitigate internal fraud and maintain transparency. Moreover, the implementation of intelligent analytics helps identify process bottlenecks and optimize operations, leading to improved efficiency.</p>
                     </div>
                   </div>
-                  <div class="read-more-btn" data-target="banking" data-aos="fade-up" data-aos-duration="500" data-aos-delay="1500">Read More</div>
+                  <div class="read-more-btn" data-target="banking" data-aos="fade-up" data-aos-duration="500" data-aos-delay="600">Read More</div>
                 </div>
                 <div class="solution-panel" id="parking">
                   <h3 data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">Smart Parking Solutions</h3>
@@ -3765,6 +3837,32 @@
                     </div>
                   </div>
                   <div class="read-more-btn" data-target="education">Read More</div>
+                </div>
+                <div class="solution-panel" id="commercial">
+                  <h3 data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">Commercial Security & Automation Solutions</h3>
+                  <div class="solution-features collapsed">
+                    <div class="feature-item" data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">
+                      <h4>Advanced Gate Barrier Systems</h4>
+                      <p>Streamline access control for commercial properties with our intelligent gate barrier solutions. Automate entry and exit processes for vehicles and personnel, reducing wait times and improving security. Our systems integrate seamlessly with existing security infrastructure, providing comprehensive access management for parking lots, warehouses, and corporate campuses.</p>
+                    </div>
+                    <div class="feature-item" data-aos="fade-up" data-aos-duration="500" data-aos-delay="200">
+                      <h4>Professional Public Address Systems</h4>
+                      <p>Enhance communication across your commercial facility with high-quality public address systems. Perfect for emergency announcements, background music, and daily operations, our PA systems deliver crystal-clear audio throughout large spaces. Ideal for shopping centers, office buildings, industrial facilities, and public venues.</p>
+                    </div>
+                    <div class="feature-item" data-aos="fade-up" data-aos-duration="500" data-aos-delay="300">
+                      <h4>Integrated Security Management</h4>
+                      <p>Unify all your commercial security systems under one comprehensive platform. From CCTV surveillance to access control, fire alarms to intercom systems, our integrated solution provides centralized monitoring and control. Real-time alerts and automated responses ensure your commercial property remains secure 24/7.</p>
+                    </div>
+                    <div class="feature-item" data-aos="fade-up" data-aos-duration="500" data-aos-delay="400">
+                      <h4>Smart Building Automation</h4>
+                      <p>Transform your commercial space with intelligent building automation. Control lighting, HVAC, security, and access systems from a single interface. Optimize energy consumption, enhance occupant comfort, and improve operational efficiency while maintaining the highest security standards.</p>
+                    </div>
+                    <div class="feature-item" data-aos="fade-up" data-aos-duration="500" data-aos-delay="500">
+                      <h4>Visitor Management & Access Control</h4>
+                      <p>Streamline visitor registration and access control with our advanced visitor management systems. Track entry and exit times, issue temporary access credentials, and maintain detailed logs for security compliance. Perfect for corporate offices, manufacturing facilities, and high-security environments.</p>
+                    </div>
+                  </div>
+                  <div class="read-more-btn" data-target="commercial">Read More</div>
                 </div>
               </div>
             </div>
@@ -3994,16 +4092,16 @@
             </div>
             <div class="social-links" data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">
               <a href="https://www.instagram.com/tautsecure" class="social-link" aria-label="Instagram">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                 </svg>
               </a>
               <a href="https://www.youtube.com/@TautSecure" class="social-link" aria-label="Youtube">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                 </svg>
               </a>
-              <a href="#" class="social-link" aria-label="whatsapp">
+              <!-- <a href="#" class="social-link" aria-label="whatsapp">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                 </svg>
@@ -4012,7 +4110,7 @@
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987 6.62 0 11.987-5.367 11.987-11.987C24.014 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.323-1.297C4.198 14.895 3.708 13.744 3.708 12.447s.49-2.448 1.418-3.323c.875-.807 2.026-1.297 3.323-1.297s2.448.49 3.323 1.297c.928.875 1.418 2.026 1.418 3.323s-.49 2.448-1.418 3.244c-.875.807-2.026 1.297-3.323 1.297zm7.83-9.781c-.49 0-.928-.175-1.297-.49-.368-.315-.49-.753-.49-1.243 0-.49.122-.928.49-1.243.369-.315.807-.49 1.297-.49s.928.175 1.297.49c.368.315.49.753.49 1.243 0 .49-.122.928-.49 1.243-.369.315-.807.49-1.297.49z" />
                 </svg>
-              </a>
+              </a> -->
             </div>
             <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">
               <a href="https://intelexsolutions.in" class="footerDev"><img src="./assets/img/intelexSolutions.png" alt="" /></a>
@@ -4326,37 +4424,37 @@
       // Sample reviews data
       const sampleReviews = [
         {
-          author_name: "Bilal Ahmed",
+          author_name: "Sushma",
           rating: 5,
           relative_time_description: "2 months ago",
           text: "Taut Secure exceeded my expectations with their services. The installation was professional and the system works perfectly. Highly satisfied and I highly recommend their services!",
         },
         {
-          author_name: "Fahad Muhammed",
+          author_name: "Akshatha",
           rating: 5,
           relative_time_description: "3 months ago",
           text: "The service was outstanding, the products appeared to be well-made, and the installation was handled by a competent and skilled expert. Very professional team.",
         },
         {
-          author_name: "Fairoz",
+          author_name: "Rahul",
           rating: 5,
           relative_time_description: "1 month ago",
           text: "Great feeling to have made the right choice selecting Taut Secure Security Professionals for security system activation. The team was knowledgeable and efficient.",
         },
         {
-          author_name: "Ahmed Hassan",
+          author_name: "Hemanth",
           rating: 5,
           relative_time_description: "4 months ago",
           text: "I couldn't be happier with the level of professionalism displayed by Taut Secure. Their expertise and attention to detail made me feel confident in my choice. Highly recommend their services!",
         },
         {
-          author_name: "Sara Malik",
+          author_name: "Ravi",
           rating: 5,
           relative_time_description: "2 weeks ago",
           text: "As a customer of Taut Secure, I can confidently say that their commitment to delivering top-notch security solutions is unparalleled. They exceeded my expectations in every way.",
         },
         {
-          author_name: "Mohammed Ali",
+          author_name: "Michele D'Souza",
           rating: 5,
           relative_time_description: "1 week ago",
           text: "Excellent service from start to finish. The team was punctual, professional, and the installation was completed efficiently. The security system is working perfectly.",
@@ -4496,7 +4594,7 @@
         if (!brandsContainer) return;
 
         // List of brand names based on actual files in brands folder
-        const brandNames = ["hikvision", "prama", "digifort", "pelco", "alhua", "cisco", "milestone", "axis", "uniview", "toa", "bose"];
+        const brandNames = ["hikvision", "prama", "digifort", "pelco", "cisco", "milestone", "axis", "uniview", "toa", "bose", "Ezviz", "CP Plus", "Dahua","tp-link", "trueview", "Honeywell", "D-Link"];
 
         // Testimonial Navigation Functionality
         function initTestimonialNavigation() {
@@ -4589,13 +4687,13 @@
         // Add more sample reviews
         const additionalReviews = [
           {
-            author_name: "Fatima Khan",
+            author_name: "Wilfred Rodrigues",
             rating: 5,
             relative_time_description: "3 days ago",
             text: "Outstanding service! The team was very professional and the installation was quick and clean. The security system is working perfectly.",
           },
           {
-            author_name: "Omar Hassan",
+            author_name: "Harshith Kotian",
             rating: 5,
             relative_time_description: "1 week ago",
             text: "Excellent experience with Taut Secure. The staff was knowledgeable and the system installation was smooth. Highly recommended!",
@@ -4791,36 +4889,36 @@
           }
         });
 
-        // Independence Popup Functionality
-        const independencePopup = document.getElementById("independencePopup");
-        const independencePopupClose = document.getElementById("independencePopupClose");
+        // Event Popup Functionality
+        const EventPopup = document.getElementById("EventPopup");
+        const EventPopupClose = document.getElementById("EventPopupClose");
 
-        // Show independence popup after 4 seconds (only if showIndependencePopup is true)
-        if (showIndependencePopup) {
+        // Show Event popup after 2 seconds (only if showEventPopup is true)
+        if (showEventPopup) {
           setTimeout(function () {
-            independencePopup.classList.add("active");
+            EventPopup.classList.add("active");
             document.body.style.overflow = "hidden"; // Prevent background scrolling
           }, 2000);
         }
 
-        // Close independence popup when clicking close button
-        independencePopupClose.addEventListener("click", function () {
-          independencePopup.classList.remove("active");
+        // Close Event popup when clicking close button
+        EventPopupClose.addEventListener("click", function () {
+          EventPopup.classList.remove("active");
           document.body.style.overflow = ""; // Restore scrolling
         });
 
-        // Close independence popup when clicking outside
-        independencePopup.addEventListener("click", function (e) {
-          if (e.target === independencePopup) {
-            independencePopup.classList.remove("active");
+        // Close Event popup when clicking outside
+        EventPopup.addEventListener("click", function (e) {
+          if (e.target === EventPopup) {
+            EventPopup.classList.remove("active");
             document.body.style.overflow = "";
           }
         });
 
-        // Close independence popup with Escape key
+        // Close Event popup with Escape key
         document.addEventListener("keydown", function (e) {
-          if (e.key === "Escape" && independencePopup.classList.contains("active")) {
-            independencePopup.classList.remove("active");
+          if (e.key === "Escape" && EventPopup.classList.contains("active")) {
+            EventPopup.classList.remove("active");
             document.body.style.overflow = "";
           }
         });

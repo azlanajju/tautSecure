@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Careers | Taut Secure</title>
+    <link rel="icon" type="image/x-icon" href="./assets/img/logo.ico" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --primary: #d90429;
+        --background: #fff;
+        --foreground: #111;
+        --card-bg: #f7f7f7;
+        --shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "Montserrat", Arial, sans-serif;
+        background: var(--background);
+        color: var(--foreground);
+      }
+      header {
+        position: sticky;
+        top: 0;
+        background: #fff;
+        border-bottom: 1px solid #eee;
+        z-index: 10;
+      }
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 1.2rem;
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .nav a {
+        text-decoration: none;
+        color: var(--primary);
+        font-weight: 600;
+      }
+      .hero {
+        padding: 4rem 1.2rem;
+        text-align: center;
+        background: linear-gradient(135deg, rgba(217, 4, 41, 0.07), rgba(0, 0, 0, 0.02));
+      }
+      .hero h1 {
+        margin: 0 0 0.5rem 0;
+        font-size: 2.2rem;
+      }
+      .hero p {
+        margin: 0;
+        opacity: 0.8;
+      }
+      .jobs {
+        padding: 2rem 1.2rem;
+      }
+      .job-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1rem;
+      }
+      .job-card {
+        background: var(--card-bg);
+        border-radius: 14px;
+        padding: 1rem 1rem;
+        box-shadow: var(--shadow);
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        border: 1px solid #eee;
+      }
+      .job-title {
+        font-weight: 700;
+        color: var(--primary);
+      }
+      .job-meta {
+        font-size: 0.9rem;
+        opacity: 0.8;
+      }
+      .job-actions {
+        margin-top: 0.5rem;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.7rem 1rem;
+        border-radius: 10px;
+        text-decoration: none;
+        color: #fff;
+        background: linear-gradient(135deg, var(--primary), #b00020);
+        font-weight: 600;
+        box-shadow: 0 4px 14px rgba(217, 4, 41, 0.25);
+        transition: transform 0.2s ease;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+      footer {
+        text-align: center;
+        padding: 2rem 1rem;
+        color: #777;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <a href="index.html">← Back to Home</a>
+        <strong>Careers</strong>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="container">
+        <h1>Join Taut Secure</h1>
+        <p>Build the future of security with a team that cares about impact and excellence.</p>
+      </div>
+    </section>
+
+    <section class="jobs">
+      <div class="container">
+        <h2 style="margin-top: 0">Open Roles</h2>
+        <div class="job-list">
+          <div class="job-card">
+            <div class="job-title">Security Systems Engineer</div>
+            <div class="job-meta">Bangalore · Full-time</div>
+            <p>Design, deploy and support CCTV, access control, and alarm systems for enterprise clients.</p>
+            <div class="job-actions">
+              <a class="btn" href="mailto:info@tautsecure.com?subject=Application%20-%20Security%20Systems%20Engineer&body=Hi%20Taut%20Secure,%0D%0A%0D%0AMy%20profile%20for%20Security%20Systems%20Engineer%3A%0D%0A%0D%0A-%20Name%3A%0D%0A-%20Phone%3A%0D%0A-%20Experience%3A%0D%0A-%20Portfolio/LinkedIn%3A%0D%0A%0D%0AThanks!">Apply via Email</a>
+            </div>
+          </div>
+          <div class="job-card">
+            <div class="job-title">Project Coordinator</div>
+            <div class="job-meta">Mangalore · Full-time</div>
+            <p>Coordinate installations, vendors, and client communication to deliver projects on time.</p>
+            <div class="job-actions">
+              <a class="btn" href="mailto:info@tautsecure.com?subject=Application%20-%20Project%20Coordinator&body=Hi%20Taut%20Secure,%0D%0A%0D%0AMy%20profile%20for%20Project%20Coordinator%3A%0D%0A%0D%0A-%20Name%3A%0D%0A-%20Phone%3A%0D%0A-%20Experience%3A%0D%0A-%20Portfolio/LinkedIn%3A%0D%0A%0D%0AThanks!">Apply via Email</a>
+            </div>
+          </div>
+          <div class="job-card">
+            <div class="job-title">Sales Executive (B2B)</div>
+            <div class="job-meta">Kasaragod · Full-time</div>
+            <p>Drive growth by building relationships and crafting tailored security solutions for clients.</p>
+            <div class="job-actions">
+              <a class="btn" href="mailto:info@tautsecure.com?subject=Application%20-%20Sales%20Executive%20(B2B)&body=Hi%20Taut%20Secure,%0D%0A%0D%0AMy%20profile%20for%20Sales%20Executive%20(B2B)%3A%0D%0A%0D%0A-%20Name%3A%0D%0A-%20Phone%3A%0D%0A-%20Experience%3A%0D%0A-%20Portfolio/LinkedIn%3A%0D%0A%0D%0AThanks!">Apply via Email</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">© 2025 Taut Secure · careers@tautsecure.com</div>
+    </footer>
+  </body>
+</html>
