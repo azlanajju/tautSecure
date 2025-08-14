@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <script>
       // window.location.href="./launching-soon.html"
+
+      // Popup control variables
+      let showContactPopup = false; // Control whether to show contact popup
+      let showIndependencePopup = true; // Control whether to show independence popup
     </script>
     <style>
       :root {
@@ -1493,8 +1497,9 @@
         height: 60px;
         object-fit: contain;
         transition: transform 0.3s ease;
-        filter: grayscale(100%);
-        opacity: 0.7;
+        /* filter: grayscale(100%); */
+
+        opacity: 1;
       }
 
       .brand-logo:hover {
@@ -3209,6 +3214,82 @@
         z-index: 3;
       }
 
+      /* Independence Popup Styles */
+      .independence-image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+      }
+
+      .independence-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+      }
+
+      .independence-image:hover {
+        transform: scale(1.02);
+      }
+
+      .independence-actions {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1.5rem 0 0 0;
+        margin-top: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .independence-call-btn {
+        background: linear-gradient(135deg, #d90429 0%, #b00020 100%);
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(217, 4, 41, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .independence-call-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s ease;
+      }
+
+      .independence-call-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(217, 4, 41, 0.4);
+      }
+
+      .independence-call-btn:hover::before {
+        left: 100%;
+      }
+
+      .independence-call-btn i {
+        position: relative;
+        z-index: 1;
+        transition: transform 0.3s ease;
+      }
+
+      .independence-call-btn:hover i {
+        transform: scale(1.1);
+      }
+
       @media (max-width: 768px) {
         .about-img img {
           max-width: 96vw;
@@ -3364,6 +3445,28 @@
             <a href="#contact" class="popup-btn popup-btn-secondary" id="popupContactBtn">
               <i class="fas fa-envelope"></i>
               Contact Form
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Independence Popup -->
+    <div class="popup-overlay" id="independencePopup">
+      <div class="popup-container">
+        <div class="popup-header">
+          <button class="popup-close" id="independencePopupClose">×</button>
+          <h2 class="popup-title">Independence Day</h2>
+          <p class="popup-subtitle">Celebrating Freedom</p>
+        </div>
+        <div class="popup-content">
+          <div class="independence-image-container">
+            <img src="./assets/img/poster/independence.png" alt="Independence Day" class="independence-image" />
+          </div>
+          <div class="independence-actions">
+            <a href="tel:+917337836586" class="independence-call-btn">
+              <i class="fas fa-phone"></i>
+              Call Now
             </a>
           </div>
         </div>
@@ -4393,7 +4496,7 @@
         if (!brandsContainer) return;
 
         // List of brand names based on actual files in brands folder
-        const brandNames = ["prama", "digifort", "pelco", "alhua", "cisco", "milestone", "axis", "uniview", "toa", "bose", "hikvision"];
+        const brandNames = ["hikvision", "prama", "digifort", "pelco", "alhua", "cisco", "milestone", "axis", "uniview", "toa", "bose"];
 
         // Testimonial Navigation Functionality
         function initTestimonialNavigation() {
@@ -4652,11 +4755,13 @@
         const popupClose = document.getElementById("popupClose");
         const popupContactBtn = document.getElementById("popupContactBtn");
 
-        // Show popup after 2 seconds
-        setTimeout(function () {
-          popup.classList.add("active");
-          document.body.style.overflow = "hidden"; // Prevent background scrolling
-        }, 2000);
+        // Show contact popup after 2 seconds (only if showContactPopup is true)
+        if (showContactPopup) {
+          setTimeout(function () {
+            popup.classList.add("active");
+            document.body.style.overflow = "hidden"; // Prevent background scrolling
+          }, 2000);
+        }
 
         // Close popup when clicking close button
         popupClose.addEventListener("click", function () {
@@ -4682,6 +4787,40 @@
         document.addEventListener("keydown", function (e) {
           if (e.key === "Escape" && popup.classList.contains("active")) {
             popup.classList.remove("active");
+            document.body.style.overflow = "";
+          }
+        });
+
+        // Independence Popup Functionality
+        const independencePopup = document.getElementById("independencePopup");
+        const independencePopupClose = document.getElementById("independencePopupClose");
+
+        // Show independence popup after 4 seconds (only if showIndependencePopup is true)
+        if (showIndependencePopup) {
+          setTimeout(function () {
+            independencePopup.classList.add("active");
+            document.body.style.overflow = "hidden"; // Prevent background scrolling
+          }, 2000);
+        }
+
+        // Close independence popup when clicking close button
+        independencePopupClose.addEventListener("click", function () {
+          independencePopup.classList.remove("active");
+          document.body.style.overflow = ""; // Restore scrolling
+        });
+
+        // Close independence popup when clicking outside
+        independencePopup.addEventListener("click", function (e) {
+          if (e.target === independencePopup) {
+            independencePopup.classList.remove("active");
+            document.body.style.overflow = "";
+          }
+        });
+
+        // Close independence popup with Escape key
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && independencePopup.classList.contains("active")) {
+            independencePopup.classList.remove("active");
             document.body.style.overflow = "";
           }
         });
