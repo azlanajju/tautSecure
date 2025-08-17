@@ -44,10 +44,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($mailSuccess) {
         echo '<script>alert("Thank you for contacting Taut Secure! We will get back to you within 24 hours.");</script>';
-        echo '<script>
-                setTimeout(function(){
-                    window.location.href = "index.html#contact";
-                }, 3000); 
+        // echo '<script>
+        //         setTimeout(function(){
+        //             window.location.href = "index.html#contact";
+        //         }, 3000); 
               </script>';
     } else {
         echo '<script>alert("Error sending email. Please try again later or contact us directly.");</script>';
