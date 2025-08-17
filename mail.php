@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //         setTimeout(function(){
         //             window.location.href = "index.html#contact";
         //         }, 3000); 
-              </script>';
+              // </script>';
     } else {
         echo '<script>alert("Error sending email. Please try again later or contact us directly.");</script>';
         echo '<script>window.history.back();</script>';
