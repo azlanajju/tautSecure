@@ -139,7 +139,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="thank-you-message">
             <h1 class="thank-you-title">Thank You!</h1>
             <p class="thank-you-subtitle">Your message has been sent successfully.</p>
-            <p class="redirect-info">You will be redirected to the home page in a few seconds...</p>
+            <!-- <p class="redirect-info">You will be redirected to the home page in a few seconds...</p> -->
+            <p class="redirect-info">Thank you for contacting Taut Secure! We will get back to you within 24 hours.</p>
+
         </div>
 
         <a href="index.html" class="home-button">Return to Home</a>
